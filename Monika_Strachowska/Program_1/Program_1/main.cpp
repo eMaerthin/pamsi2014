@@ -1,3 +1,8 @@
+/**
+*
+*	autor:	Monika Strachowska
+*	data:	4.03.2014
+*/
 #include <iostream>
 #include <string>
 #include <fstream>
