@@ -1,3 +1,5 @@
+#include "tablica_klasa.hh"
+
 int main_klasa()
 {
 	int opcja;
