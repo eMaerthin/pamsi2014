@@ -1,0 +1,28 @@
+PROG=tablica_klasa
+
+
+__start__: obj ${PROG} 
+
+obj:
+	mkdir obj
+
+${PROG}: obj/main_klasa.o obj/tablica_klasa.o
+	g++ -Wall -o ${PROG} obj/main_klasa.o
+
+obj/main_klasa.o: src/main_klasa.cpp inc/tablica_klasa.hh
+	g++ -c -Wall -pedantic -iquote inc -o obj/main_klasa.o src/main_klasa.cpp 
+
+clean:
+	rm -f ${PROG} obj/*
+
+help:
+	@echo "\n\
+ Ten plik pozwala wywolac polecenie make z nastepujacymi\n\
+ podcelami:                                             \n\
+                                                        \n\
+   make            - kompilacja, konsolidacja i uruchomienie\n\
+                     programu z aktualnym typem danych.\n\
+   make clean      - usuwa produkcji kompilacji i sam program.\n\
+   make help       - wyswietla te informacje.\n\
+\n\
+"
