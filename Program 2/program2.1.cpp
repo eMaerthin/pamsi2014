@@ -36,9 +36,10 @@ struct stos
        }
 /*Metoda odpowiadajaca za dodanie na stos nowego elementu o wartosci przekazanej przez parametr wejsciowy
          oraz zwiekszenie licznika elementow. Jezeli lista jest pusta (to znaczy, ze wskaznik "poczatek" wskazuje na 0)
-         nowododany element zostaje wskazany jako poczatkowy. Jesli jest to kolejny element stosu, to najpierw wskaznik przesuwamy
-         na koniec listy, a nastepnie wskaznikiem ostatniego elementu (ktory z zalozenia wskazuje na element nastepny) wskazujemy na
-         nowy, dodawany element.*/
+         nowododany element zostaje wskazany jako poczatkowy.
+		 
+~~~~~~~~Metoda zostala poprawiona, zgodnie z trescia zadania nowy element zostaje dodany na poczatek listy		 
+		 */
          
        void dodaj_element(typ I)
        {
@@ -49,18 +50,16 @@ struct stos
                     poczatek=nowy;
             else
             {
-                    element<typ> *tmp=poczatek;
-                    while(tmp->nastepny)
-                                        tmp=tmp->nastepny;
-                    tmp->nastepny=nowy;
-                    nowy->nastepny=0;
+                nowy->nastepny=poczatek;
+				poczatek=nowy;    
             }
        }
 /*Metoda odpowiadajaca za usuniecie ze stosu ostatnio dodanego elementu. Najpierw sprawdza ona, czy lista nie jest pusta,
          to znaczy czy wskaznik "poczatek" nie wskazuje na 0. Jesli tak sie stanie, wyswietlony zostanie komunikat o bledzie.
-         Jezeli lista nie jest pusta, to przesuwamy sie na przedostatni element listy, a nastepnie jego wskaznik wskazujemy na 0,
-         czyniac jednoczesnie element przedostatni elementem ostatnim. Jezeli na stosie jest tylko jeden element, czyli
-         nie mozna zdefiniowac elementu "przedostatniego", to wtedy wskaznik "poczatek" ustawiamy na 0, co oznacza, ze lista jest pusta*/       
+         Jezeli lista nie jest pusta, to wskaznik poczatek jest ustawiany na kolejny element, co powoduje usuniecie pierwszego elementu
+         
+~~~~~~~~Metoda zostala poprawiona, aby zgodnie z trescia zadania usuwany byl element z poczatku listy		 
+		 */       
        
        void usun_element()
        {
@@ -74,22 +73,11 @@ struct stos
                 if(tmp->nastepny==0)
                                    poczatek=0;
                 else
-                {
-                while(tmp->nastepny->nastepny)
-                tmp=tmp->nastepny;
-                tmp->nastepny=0;
-                }
+                	poczatek=tmp->nastepny;
             }
        }
 /*Metoda odpowiadajaca za wyswietlenie aktualnej zawartosci listy. Wyswietlane zostaja kolejne elementy oddzielone od siebie spacja oraz rozmiar listy,
-         czyli ilosc elementow
-		 
-		 
-~~~~~~~~~~~~~Problemem tej metody jest niewlasciowa kolejnosc wyswietlania elementow. Pierwszym wyswietlonym elementem, zgodnie z wymogami zadania,
-		powinien byc element ostatni umieszczony na stosie. Stos zdefiniowany w tym zadaniu posiada wskaznik na pierwszy element, a kazdy z elementow
-		posiada wskaznik na element nastepny. Taka sytuacja wymusza "przechodzenie" pomiedzy kolejnymi elementami od pierwszego, do ostatniego.
-		Jedyna mozliwoscia rozwiazania tego problemu, jaka udalo mi sie wymyslic, jest dodanie do elementu stosu wskaznika do elementu poprzedniego.
-		Rozwiazanie to wydaje sie jednak sprzeczne z tematem zadania - lista jednokierunkowa*/       
+         czyli ilosc elementow*/     
        void wyswietl_liste()
        {
             element<typ> *tmp=poczatek;
