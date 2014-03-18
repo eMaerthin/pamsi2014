@@ -8,6 +8,10 @@
 
 #ifndef __pamaaaasi__lista__
 #define __pamaaaasi__lista__
+<<<<<<< HEAD
+=======
+#include <list>
+>>>>>>> FETCH_HEAD
 #include <iostream>
 class lista
 {
@@ -21,6 +25,10 @@ public:
     class iter{
     public:
         Element * wsk;
+<<<<<<< HEAD
+=======
+        iter nastepny(iter x);
+>>>>>>> FETCH_HEAD
     };
     iter poczatek, koniec;
     lista(void);
