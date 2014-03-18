@@ -69,6 +69,9 @@ void do_bin()
 }
 void losowe()
 {
+    cout<<"Podaj wielkosc tablicy: ";
+     cin>>N;
+     t=new int[N];
     for(i=0;i<N;++i)
  {
      t[i]=rand()%11;
