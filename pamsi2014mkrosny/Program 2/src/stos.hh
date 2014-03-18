@@ -59,7 +59,7 @@ bool k_stos<TYP>::Usun_poczatek() {
 		i = 0;
 		while (temp->wsk != NULL) { temp = temp->wsk; i++; } //przeskakujemy po wskaünikach na poczatek
 		temp = NULL;
-		for (s = 0; s < i; s++) {
+		for (s = 0; s < i-1; s++) {
 			pierwszy = pierwszy->wsk;
 		}
 		pierwszy->wsk = NULL;
