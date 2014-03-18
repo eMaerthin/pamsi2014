@@ -34,6 +34,8 @@ void wyswietl_tablice()
 void z_txt ()
 {
 ifstream dane("tab.txt");
+dane>>N;
+     t=new int[N];
      for (int i=0;i<N; i++){
                         dane>>t[i];
                 }
@@ -41,7 +43,9 @@ ifstream dane("tab.txt");
 }
 void do_txt()
 {
+  
 ofstream plik("tab.txt", ios::trunc);
+plik<<N<<endl;
                         for (int i=0; i<N; i++){
                                 plik<<t[i]<<endl;
                         }
@@ -50,6 +54,8 @@ ofstream plik("tab.txt", ios::trunc);
 void z_bin ()
 {
  ifstream ifs("tab.dat", ios::binary);
+ ifs>>N;
+         t=new int[N];
         for (int i=0; i<N; i++){
                 char* temp = new char[sizeof(int)];
                 ifs.read(temp, sizeof(int));
@@ -62,6 +68,7 @@ void z_bin ()
 void do_bin()
 {
  ofstream ofs("tab.dat", ios::binary);
+  ofs<<N;
         for (int i=0; i<N; i++){
                 ofs.write((char*)(&t[i]), sizeof(t[i]));
         }
@@ -106,7 +113,7 @@ int opcja;
 
 do{
 
-cout << "1.Wszytanie tablicy z konsoli" << endl;
+cout << "1.Wczytanie tablicy z konsoli" << endl;
 cout << "2.Wyswietlenie tablicy" << endl;
 cout << "3.Wczytywanie z pliku tekstowego" << endl;
 cout << "4.Zapisywanie do pliku tekstowego" << endl;
