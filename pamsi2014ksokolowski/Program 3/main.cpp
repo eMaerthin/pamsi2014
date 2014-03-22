@@ -1,6 +1,5 @@
 #include <iostream>
 #include "funkcje_menu.h"
-#include <conio.h> //dla textcolor()
 
 using namespace std;
 
