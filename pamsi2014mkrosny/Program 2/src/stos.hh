@@ -20,7 +20,7 @@ public:
 	k_stos(){ pierwszy = NULL; rozmiar = 0; } //konstruktor klasy stos
 	~k_stos() { while (Usun_poczatek()); } //destruktor klasy stos
 
-	int Rozmiar_stosu() { cout << endl << "__________________" << endl << "Rozmiar stosu:\t"; return rozmiar; }
+	void Rozmiar_stosu() { cout << endl << "__________________" << endl << "Rozmiar stosu, ilosc elementow:\t" << rozmiar << endl; }
 
 	void Poloz_poczatek(TYP d);
 	bool Usun_poczatek();
@@ -33,10 +33,8 @@ void k_stos<TYP>::Poloz_poczatek(TYP d) {
 	k_element<TYP>* nowy = new k_element<TYP>(d);
 
 	if (pierwszy == NULL) pierwszy = nowy; //jesli lista jest pusta
-	else {
-		k_element<TYP> *temp = pierwszy; // jesli nie, przypisujemy tymczasowo dodany element
-		while (temp->wsk) { temp = temp->wsk; } //przeskakujemy po wskaünikach na poczatek
-		temp->wsk = nowy;  // przypisujemy nowy element do poczatku listy
+	else { nowy->wsk = pierwszy; //przypisujemy wczesniej pierwszy element listy jako drugi
+			pierwszy = nowy;  // przypisujemy nowy element do poczatku listy
 	}
 	rozmiar++;
 }
@@ -46,26 +44,19 @@ void k_stos<TYP>::Wyswietl_stos() {
 	cout << endl << "Lista elementÛw, w kolejnoúci od pierwszego do ostatniego:" << endl;
 	while (i) {
 		cout << i->wartosc << endl;
-		i = i->wsk;
-	}
+		i = i->wsk; }
+	delete i; //zwalnianie pamieci tymczasowej
 }
 
 template <typename TYP>
 bool k_stos<TYP>::Usun_poczatek() {
-	int i,s;
 	if (pierwszy == NULL) { cout << "Stos jest pusty"; return false; } //jesli lista jest pusta
-	else {
-		k_element<TYP> *temp = pierwszy; // jesli nie, przypisujemy tymczasowo dodany element
-		i = 0;
-		while (temp->wsk != NULL) { temp = temp->wsk; i++; } //przeskakujemy po wskaünikach na poczatek
-		temp = NULL;
-		for (s = 0; s < i-1; s++) {
-			pierwszy = pierwszy->wsk;
-		}
-		pierwszy->wsk = NULL;
-		rozmiar--;
-		return true;
-	}
+	else { rozmiar--;
+		k_element<TYP> *temp = pierwszy;
+		if (temp->wsk == NULL) pierwszy = NULL; //jesli pierwszy element jest pierwszy na liscie; lista zawiera jeden element
+		else pierwszy = temp->wsk; //jesli lista zawiera wiecej elementow
+		delete temp; //zwalnianie pamieci tymczasowej
+		return true; }
 }
 
 #endif

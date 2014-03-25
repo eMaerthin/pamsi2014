@@ -6,9 +6,9 @@ int main() {
 	k_stos<TYP> stos;
 	TYP dana;
 	do {
-		cout << "1.Dodawanie elementu na poczatek listy" << endl;
+		cout << endl << "1.Dodawanie elementu na poczatek listy" << endl;
 		cout << "2.Wyœwietlenie zawartosci listy i jej rozmiaru" << endl;
-		cout << "3.Usuniêcie elementu listy" << endl;
+		cout << "3.Usuniêcie elementu listy z poczatku" << endl;
 		cout << "0.Koniec" << endl;
 		cout << "Wybierz opcjê" << endl;
 		cin >> opcja;
