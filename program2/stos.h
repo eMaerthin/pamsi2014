@@ -1,10 +1,6 @@
-<<<<<<< HEAD
 //
 //  stos.h
 //  pamaaaasi
-=======
-utf-8;134217984/  pamaaaasi
->>>>>>> FETCH_HEAD
 //
 //  Created by Adrian Bykowski on 11.03.2014.
 //  Copyright (c) 2014 Adrian Bykowski. All rights reserved.
