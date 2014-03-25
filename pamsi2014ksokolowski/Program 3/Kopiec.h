@@ -59,9 +59,8 @@ public:
 	//Usuwanie pierwszego elementu tj o najwiekszej wartosci
 	void usun_pierwszy()
 	{
-		przesun_w_lewo();
+		pop_heap(tablica, tablica + rozmiar);
 		--rozmiar;
-		posortuj();
 	}
 
 private:
@@ -71,8 +70,8 @@ private:
 	void stworz_kopiec()
 	{
 		wpisz_liczby_losowe();
-		posortuj();
-		//sortuj_z_stl();
+		//posortuj(); //zmieniamy zaleznie od tego jakie chcemy sortowanie
+		sortuj_z_stl();
 	}
 	/////////////////////////////////////////////////////////////////////////
 	//Wpisanie liczb losowych do tablicy kopca
@@ -110,15 +109,13 @@ private:
 					zmiana = true;
 				}
 			}
-		} while (zmiana); //dopuki nie zostanie niewykonana zadna zmiana
+		} while (zmiana); //dopoki nie zostanie niewykonana zadna zmiana
 	}
 	/////////////////////////////////////////////////////////////////////////
 	//Funkcja pozwalajaca na sortowanie kopca przy uzyciu funkcji z biblioteki STL
 	void sortuj_z_stl()
 	{
 		std::make_heap(tablica, tablica + rozmiar);
-		//std::reverse(tablica, tablica + rozmiar);
-		std::sort_heap(tablica, tablica + rozmiar);
 	}
 	/////////////////////////////////////////////////////////////////////////
 	//Funkcja pomocnicza przy usuwaniu pierwszego elementu z kopca i tym samym z tablicy
@@ -128,7 +125,13 @@ private:
 			tablica[i] = tablica[i + 1];
 		}
 	}
+	bool porownaj(int a, int b)
+	{
+		return (a>b);
+	}
 };
 //*****************************************************************************************************
+
+
 
 #endif
