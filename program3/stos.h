@@ -1,3 +1,4 @@
+
 //
 //  stos.h
 //  pamaaaasi
@@ -19,5 +20,6 @@ public:
     unsigned long int rozmiar(void);
     void wyswietl(void);
     void usun(void);
+    bool znajdz(int x);
 };
 #endif /* defined(__pamaaaasi__stos__) */
