@@ -1,5 +1,6 @@
 #include <iostream>
 #include "BubbleSort.h"
+#include "ShellSort.h"
 
 void menu();
 
@@ -25,6 +26,8 @@ void menu() {
 		<< "3 - sortowanie tablicy z 90% uporzadkowanymi elementami\n>";
 	int uporzadkowanie = 0;
 	std::cin >> uporzadkowanie;
-	BubbleSort BS(n,rozklad,uporzadkowanie);
+	//BubbleSort BS(n,rozklad,uporzadkowanie);
+	ShellSort SS(n,rozklad,uporzadkowanie);
+
 }
 

@@ -62,11 +62,11 @@ void Tablica::uzupelnianeTablicy(void)
 {
 	for(int i = 0; i < rozmiar; i++) tablica[i] = 0;
 	int eksperymenty = 10000;
-	int liczba = 100;
+	int liczba = 100000;
 	default_random_engine generator;
 	//rozklad jednostajny
 	if(rozklad == 0) {
-		uniform_int_distribution < int> dystrybucja(0,9);
+		uniform_int_distribution <int> dystrybucja(1,rozmiar);
 		for(int i = 0; i < eksperymenty; i++) {
 			int numer = dystrybucja(generator);
 			++tablica[numer];
@@ -76,7 +76,7 @@ void Tablica::uzupelnianeTablicy(void)
 	}
 	//rozkald normalny
 	else if(rozklad == 1) {
-		normal_distribution <double> dystrubucja(5.0,2.0);
+		normal_distribution <double> dystrubucja(rozmiar/2.0,32.0);
 		for(int i = 0; i < eksperymenty; i++) {
 			int numer = dystrubucja(generator);
 			if((numer >= 0.0) && (numer < rozmiar))
@@ -87,10 +87,7 @@ void Tablica::uzupelnianeTablicy(void)
 	}
 	//rozklad poissona
 	else if(rozklad == 2) {
-		
-		poisson_distribution<int> dystrybucja(4.1);
-
-	
+		poisson_distribution<int> dystrybucja(rozmiar/2.0);
 		for(int i = 0; i < eksperymenty; i++) {
 			int numer = dystrybucja(generator);
 			if(numer < rozmiar)
