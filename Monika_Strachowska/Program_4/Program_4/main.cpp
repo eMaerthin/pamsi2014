@@ -1,6 +1,7 @@
 #include <iostream>
 #include "BubbleSort.h"
 #include "ShellSort.h"
+#include "QuickSort.h"
 
 void menu();
 
@@ -12,7 +13,7 @@ int main() {
 
 
 void menu() {
-	std::cout << "Witaj! Ile elementow ma miec tablic?\n>";
+	std::cout << "Witaj! Ile elementow ma miec tablica?\n>";
 	int n = 0;
 	std::cin >> n;
 	std::cout << "\n0 - sortowanie tablicy z rozkladu jednostajnego\n"
@@ -26,8 +27,14 @@ void menu() {
 		<< "3 - sortowanie tablicy z 90% uporzadkowanymi elementami\n>";
 	int uporzadkowanie = 0;
 	std::cin >> uporzadkowanie;
-	//BubbleSort BS(n,rozklad,uporzadkowanie);
-	ShellSort SS(n,rozklad,uporzadkowanie);
+	std::cout << "\n0 - sortowanie babelkowe\n"
+		<< "1 - sortowanie shella\n"
+		<< "2 - sortowanie quick sort\n";
+	int ktore = 0;
+	std::cin >> ktore;
+	if(ktore == 0) BubbleSort BS(n,rozklad,uporzadkowanie);
+	else if(ktore == 1) ShellSort SS(n,rozklad,uporzadkowanie);
+	else if(ktore == 2) QuickSort QS(n,rozklad,uporzadkowanie);
 
 }
 

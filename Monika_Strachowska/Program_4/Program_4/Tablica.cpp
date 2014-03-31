@@ -1,4 +1,5 @@
 #include "Tablica.h"
+#include "QuickSort.h"
 #include <iostream>
 #include <random>
 
@@ -107,7 +108,28 @@ void Tablica::wstepneSortowanie(void)
 	else if(uporzadkowanie == 2) procent = 0.5;
 	else if(uporzadkowanie == 3) procent = 0.9;
 
-	for(int i = 0; i < (int)rozmiar * procent; i++) {
+	algorytmT(0,(int)(rozmiar * procent) - 1);
+}
 
+
+void Tablica::algorytmT(int lewy, int prawy)
+{
+	int i = (lewy + prawy)/2;
+	int piwot = tablica[i];
+	tablica[i] = tablica[prawy];
+	int j = lewy;
+	for(int i = lewy; i < prawy; i++) {
+		if(tablica[i] < piwot){
+			int tmp = tablica[i];
+			tablica[i] = tablica[j];
+			tablica[j] = tmp;
+			j += 1;
+		}
 	}
+	tablica[prawy] = tablica[j];
+	tablica[j] = piwot;
+	if(lewy < j - 1)
+		algorytmT(lewy, j - 1);
+	if(j + 1 < prawy)
+		algorytmT(j + 1, prawy);
 }

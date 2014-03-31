@@ -17,5 +17,6 @@ public:
 	void wyswietlanieTablicy(void);
 	void uzupelnianeTablicy(void);
 	void wstepneSortowanie(void);
+	void algorytmT(int lewy, int prawy);
 };
 

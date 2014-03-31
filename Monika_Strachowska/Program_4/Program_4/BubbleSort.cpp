@@ -16,6 +16,8 @@ BubbleSort::BubbleSort(int rozmiar1, int rozkald1, int uporzadkowanie1)
 	tablica = new int[rozmiar1];
 	uzupelnianeTablicy();
 	wyswietlanieTablicy();
+	wstepneSortowanie();
+	wyswietlanieTablicy();
 	algorytm();
 	wyswietlanieTablicy();
 }
