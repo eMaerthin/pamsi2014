@@ -6,8 +6,6 @@
 using namespace std;
 
 
-
-
 template <class T>
 class Tablica
 {
@@ -26,7 +24,7 @@ class Tablica
 
 
 	public:
-		Tablica():tablica(NULL),n(10){}
+		Tablica():tablica(NULL),n(0){}
 		virtual ~Tablica(){delete [] tablica;}
 		void menu();
 			Tablica & operator =(const Tablica<T> &t)
@@ -41,6 +39,9 @@ class Tablica
 template <class T>
 void Tablica <T>::WczytanieTablicyZKonsoli() 
 {
+	cout << "Podaj rozmiar tablicy\n";
+    cin >> n;
+    tablica = new T[n];
 
 	for(int i = 0; i < n; i++) 
 	{
@@ -63,10 +64,12 @@ void Tablica <T>::WyswietlenieTablicyWKonsoli()
 template <class T>
 void Tablica <T>::WczytanieTablicyZPlikuTekstowego()
 {
-
+	
 	int i=0;
 	int j=0;
     
+	cout << "Podaj rozmiar tablicy\n";
+	cin >> n;
 
 	ifstream liczby;
 
@@ -168,7 +171,10 @@ void Tablica <T>::WczytanieZPlikuBinarnego()
 {
 	int i=0;
 	int j=0;
-    
+
+	cout << "Podaj rozmiar tablicy\n";
+	cin >> n;    
+
 	ifstream liczbybinarne;
 
 	liczbybinarne.open("liczbybinarne.bin", ios::binary);
@@ -227,9 +233,6 @@ void Tablica <T>::menu()
 		{
 			case 0: break;
 			case 1:
-                cout << "Podaj rozmiar tablicy\n";
-                cin >> n;
-                tablica = new T[n];
                 WczytanieTablicyZKonsoli();
                 break;
 			case 2:
