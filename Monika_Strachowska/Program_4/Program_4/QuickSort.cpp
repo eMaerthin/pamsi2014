@@ -1,5 +1,6 @@
 #include "QuickSort.h"
 #include <iostream>
+#include <Windows.h>
 using namespace std;
 
 
@@ -15,10 +16,15 @@ QuickSort::QuickSort(int rozmiar1, int rozkald1, int uporzadkowanie1)
 	setUporzadkowanie(uporzadkowanie1);
 	tablica = new int[rozmiar1];
 	uzupelnianeTablicy();
-	wyswietlanieTablicy();
+	//wyswietlanieTablicy();
 	wstepneSortowanie();
-	wyswietlanieTablicy();
-	algorytm(0,rozmiar - 1);
+	//wyswietlanieTablicy();
+	__int64 poczatek = 0, koniec = 0;
+	QueryPerformanceCounter((LARGE_INTEGER*) & poczatek);
+	algorytmQS(0,rozmiar - 1);
+	QueryPerformanceCounter((LARGE_INTEGER*) & koniec);
+	__int64 czas = koniec - poczatek;
+	cout << "\n\n Czas " << czas << endl;
 	wyswietlanieTablicy();
 }
 
@@ -28,7 +34,7 @@ QuickSort::~QuickSort(void)
 }
 
 
-void QuickSort::algorytm(int lewy, int prawy)
+void QuickSort::algorytmQS(int lewy, int prawy)
 {
 	int i = (lewy + prawy)/2;
 	int piwot = tablica[i];
@@ -45,7 +51,7 @@ void QuickSort::algorytm(int lewy, int prawy)
 	tablica[prawy] = tablica[j];
 	tablica[j] = piwot;
 	if(lewy < j - 1)
-		algorytm(lewy, j - 1);
+		algorytmQS(lewy, j - 1);
 	if(j + 1 < prawy)
-		algorytm(j + 1, prawy);
+		algorytmQS(j + 1, prawy);
 }

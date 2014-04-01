@@ -1,5 +1,7 @@
 #include "Tablica.h"
 #include "QuickSort.h"
+#include "BubbleSort.h"
+#include "ShellSort.h"
 #include <iostream>
 #include <random>
 

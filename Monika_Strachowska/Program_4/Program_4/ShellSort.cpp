@@ -1,5 +1,6 @@
 #include "ShellSort.h"
 #include <iostream>
+#include <Windows.h>
 
 using namespace std;
 
@@ -18,8 +19,13 @@ ShellSort::ShellSort(int rozmiar1, int rozkald1, int uporzadkowanie1)
 	uzupelnianeTablicy();
 	wyswietlanieTablicy();
 	wstepneSortowanie();
-	wyswietlanieTablicy();
-	algorytm();
+	//wyswietlanieTablicy();
+	__int64 poczatek = 0, koniec = 0;
+	QueryPerformanceCounter((LARGE_INTEGER*) & poczatek);
+	algorytmSS();
+	QueryPerformanceCounter((LARGE_INTEGER*) & koniec);
+	__int64 czas = koniec - poczatek;
+	cout << "\n\n Czas " << czas << endl;
 	wyswietlanieTablicy();
 }
 
@@ -29,8 +35,10 @@ ShellSort::~ShellSort(void)
 }
 
 
-void ShellSort::algorytm(void)
+void ShellSort::algorytmSS(void)
 {
+	/*for(int i = 0; i < rozmiar; i++)
+		tablica[i] = rozmiar - 1;*/
 	int h = 1;
 	do {
 		h = 3 * h + 1;

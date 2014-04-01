@@ -2,6 +2,9 @@
 #include "BubbleSort.h"
 #include "ShellSort.h"
 #include "QuickSort.h"
+#include "Tablica.h"
+#include <Windows.h>
+
 
 void menu();
 
@@ -32,9 +35,8 @@ void menu() {
 		<< "2 - sortowanie quick sort\n";
 	int ktore = 0;
 	std::cin >> ktore;
-	if(ktore == 0) BubbleSort BS(n,rozklad,uporzadkowanie);
-	else if(ktore == 1) ShellSort SS(n,rozklad,uporzadkowanie);
-	else if(ktore == 2) QuickSort QS(n,rozklad,uporzadkowanie);
-
+	///*if(ktore == 0)*/ BubbleSort BS(n,rozklad,uporzadkowanie);
+	/*else if(ktore == 1)*/ ShellSort SS(n,rozklad,uporzadkowanie);
+	///*else if(ktore == 2)*/ QuickSort QS(n,rozklad,uporzadkowanie);
 }
 
