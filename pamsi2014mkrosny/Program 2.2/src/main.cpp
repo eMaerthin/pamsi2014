@@ -6,7 +6,8 @@ int main() {
 	k_lista<TYP> lista;
 	TYP dana;
 	do {
-		cout << endl << "1.Dodawanie elementu na poczatek listy" << endl;
+		cout << endl << "____________________________________________________" << endl;
+		cout << "1.Dodawanie elementu na poczatek listy" << endl;
 		cout << "2.Dodanie elementu na koniec listy" << endl;
 		cout << "3.Wyœwietlenie zawartosci listy i jej rozmiaru" << endl;
 		cout << "4.Usuniecie elementu listy z poczatku" << endl;

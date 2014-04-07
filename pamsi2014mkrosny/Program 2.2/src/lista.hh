@@ -22,7 +22,7 @@ public:
 	k_lista(){ pierwszy = NULL; ostatni = NULL; rozmiar = 0; } //konstruktor klasy lista
 	~k_lista() { while (Usun_poczatek()); } //destruktor klasy lista
 
-	void Rozmiar_listy() { cout << endl << "__________________" << endl << "Rozmiar listy, ilosc elementow:\t" << rozmiar << endl; }
+	void Rozmiar_listy() { cout << "__________________" << endl << "Rozmiar listy, ilosc elementow:\t" << rozmiar << endl << endl; }
 
 	void Poloz_poczatek(TYP d);
 	void Poloz_koniec(TYP d);
@@ -36,7 +36,8 @@ template <typename TYP>
 void k_lista<TYP>::Poloz_poczatek(TYP d) {
 	k_element<TYP>* nowy = new k_element<TYP>(d);
 	if (pierwszy == NULL) pierwszy = ostatni = nowy; //jesli lista jest pusta
-	else { nowy->nastepny = pierwszy; //przypisujemy wczesniej pierwszy element listy jako drugi
+	else {	pierwszy->poprzedni = nowy;
+			nowy->nastepny = pierwszy; //przypisujemy wczesniej pierwszy element listy jako drugi
 			pierwszy = nowy; } // przypisujemy nowy element do poczatku listy
 	rozmiar++;
 }
@@ -44,7 +45,7 @@ template <typename TYP>
 void k_lista<TYP>::Poloz_koniec(TYP d) {
 	k_element<TYP>* nowy = new k_element<TYP>(d);
 	if (pierwszy == NULL) pierwszy = ostatni = nowy; //jesli lista jest pusta
-	else { if (ostatni->nastepny == NULL) nowy->poprzedni = ostatni; ostatni->nastepny = nowy; } //jesli nie, przeskakujemy po wskaünikach na koniec
+	else { if (ostatni->nastepny == NULL) nowy->poprzedni = ostatni; ostatni->nastepny = nowy; ostatni = nowy; } //jesli nie, przeskakujemy po wskaünikach na koniec
 	rozmiar++;											//i przypisujemy nowy element do konca listy
 }
 template <typename TYP>
@@ -57,7 +58,7 @@ void k_lista<TYP>::Wyswietl_liste() {
 }
 template <typename TYP>
 bool k_lista<TYP>::Usun_poczatek() {
-	if (rozmiar == 0) { cout << "Lista jest pusta"; return false; } //jesli lista jest pusta
+	if (rozmiar == 0) { cout << "Lista jest pusta." << endl;  return false; } //jesli lista jest pusta
 	if (rozmiar == 1) { rozmiar--; pierwszy = NULL; return true; } //jesli lista zawiera jeden element
 	else { rozmiar--;
 		k_element<TYP> *temp = pierwszy;
@@ -67,12 +68,13 @@ bool k_lista<TYP>::Usun_poczatek() {
 }
 template <typename TYP>
 bool k_lista<TYP>::Usun_koniec() {
-	if (rozmiar == 0) { cout << "Lista jest pusta"; return false; } //jesli lista jest pusta
+	if (rozmiar == 0) { cout << "Lista jest pusta." << endl; return false; } //jesli lista jest pusta
 	if (rozmiar == 1) { rozmiar--; free(pierwszy); pierwszy = ostatni = NULL; return true; } //jesli lista zawiera jeden element
-	else {	rozmiar--; //jesli lista zawiera wiecej elementow 
-			k_element<TYP> *temp = ostatni;
-			if (ostatni->nastepny == NULL) ostatni = ostatni->poprzedni; ostatni->nastepny = NULL; //nie dziala, lista prawdopodobnie przeskakuje za daleko
-	delete temp;
+	else {	rozmiar--; //jesli lista zawiera wiecej elementow
+		k_element<TYP> *temp = (ostatni)->poprzedni; //tymczasowy wskaznik na przedostatni
+		free(ostatni); //zwalnianie pamieci
+		ostatni = temp;
+		ostatni->nastepny = NULL;
 	return true; }
 }
 
