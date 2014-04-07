@@ -1,6 +1,7 @@
 #include <queue>
 #include <iostream>
 #include <windows.h>
+#include <conio.h>
 
 const int n = 50;
 using namespace std;
@@ -12,15 +13,42 @@ int opcja,liczba;
 
     do
     {
-        cout << "1. Dodanie Elementu na koniec kolejki."<<endl;
-        cout << "2. Usuwanie Elementow z poczatku kolejki."<<endl;
-        cout << "3. Wyswietlenie dlugosci kolejki."<<endl;
-        cout << "0. Zakoncz."<<endl;
-      cin>>opcja;
+    cout << char(201);
+for(int r=0;r<39;r++)
+{
+   cout << char(205);
+
+}
+cout << char(187);
+cout<<endl;
+cout <<char(186)  <<"1.Dodawanie Elementu na koniec kolejki " <<char(186) << endl;
+cout << char(186) <<"2.Usuwanie Elementow z poczatku kolejki" <<char(186) << endl;
+cout << char(186) <<"3.Wyswietlanie dlugosci kolejki        " <<char(186) << endl;
+cout << char(186) <<"0.Koniec                               " <<char(186) << endl;
+cout << char(200);
+for(int r=0;r<39;r++)
+{
+   cout << char(205);
+
+}
+cout << char(188)<<endl;
+cout << "Twoj Wybor"<<char(175);
+cin>>opcja;
+
 switch(opcja){
 case 1:
     cout << "Jaka Liczbe dodac na koniec kolejki ? : ";
     cin >> liczba;
+    do{
+      if(cin.fail())
+      {
+
+         cout << "Niedozwolony Znak! Wprowadz Ponownie: ";
+         cin.clear();
+        cin.sync();
+        cin >> liczba;
+
+      }}while(cin.fail());
 kolejka.push(liczba);
 kolejka_tmp = kolejka;
 while(!kolejka_tmp.empty())
@@ -29,8 +57,10 @@ while(!kolejka_tmp.empty())
     kolejka_tmp.pop();
 
 }
-
 cout<<endl;
+cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
+         getch();
+        system( "cls" );
     break;
 case 2:
     if (kolejka.size() != 0)
@@ -48,12 +78,23 @@ cout<<endl;
 }
 else
     cout << "W kolejce nie znajduja sie zadne liczby."<<endl<<endl;
+    cout << endl;
+    cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
+         getch();
+        system( "cls" );
     break;
 case 3:
-    if (kolejka.size()!= 0)
-    cout << "W kolejce znajduje sie "<<kolejka.size()<< " liczb"<<endl;
+    if (kolejka.size()!= 0){
+    cout << "W kolejce ";
+if(kolejka.size()== 1)                             cout <<"znajduje sie "<<kolejka.size()<<" liczba"<<endl;
+if(kolejka.size() < 5 && kolejka.size() > 1  )     cout <<"znajduja sie "<<kolejka.size()<<" liczby"<<endl;
+if(kolejka.size() > 4)                             cout <<"znajduje sie "<<kolejka.size()<<" liczb"<<endl;
+            }
     if (kolejka.size() == 0)
         cout << "W kolejce nie znajduja sie zadne liczby."<<endl<<endl;
+        cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
+         getch();
+        system( "cls" );
     break;
 case 0:
 
@@ -67,7 +108,10 @@ case 0:
 }
     break;
 default:
-    cout << "Nie ma takiej Opcji! "<<endl<<endl;
+    cout << "Nie ma takiej Opcji! "<<endl;
+    cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
+         getch();
+        system( "cls" );
     }
     }while(opcja != 0);
 
