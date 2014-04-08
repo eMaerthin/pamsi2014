@@ -12,7 +12,11 @@ void Stos::push(int x) {
 }
 
 void Stos::pop(){
-	S.pop();
+	if(!S.empty()){
+		S.pop();
+	} else {
+		cout<<"Na stosie nie ma elementow"<<endl;
+	}
 }
 
 int Stos::top(){

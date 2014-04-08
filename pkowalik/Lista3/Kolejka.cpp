@@ -14,9 +14,13 @@ void Kolejka::push(int x){
 
 int Kolejka::pop(){
 	int x;
-	x=Q.front();
-	Q.pop();
-	return x;
+	if(!Q.empty()){
+		x=Q.front();
+		Q.pop();
+		return x;
+	} else {
+		cout<<"Nie ma zadnych elementow"<<endl;
+	}
 }
 
 int Kolejka::size(){

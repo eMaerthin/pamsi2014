@@ -20,7 +20,26 @@ int menu() {
 */
 
 int main() {
-	Kopiec A;
+	Kopiec l;
+	l.Wypelnij(16);
+	l.WypiszKopiec();
+	cout<<endl;
+	l.pop();
+	cout<<"--------------------------------------------------------------------------------"<<endl<<endl;
+	l.WypiszKopiec();
+	cout<<endl;
+	l.pop();
+	cout<<"--------------------------------------------------------------------------------"<<endl<<endl;
+	l.WypiszKopiec();
+	cout<<endl;
+	l.pop();
+	cout<<"--------------------------------------------------------------------------------"<<endl<<endl;
+	l.WypiszKopiec();
+	cout<<endl;
+	system("Pause");
+
+/*	Kopiec A;
+	
 	cout<<"Wypisanie Kopca z 7-toma losowymi liczbami:"<<endl;
 	A.Wypelnij(31);
 	cout<<"Kopiec: ";
@@ -73,4 +92,5 @@ int main() {
 	cout<<endl;
 
 	system("Pause");
+	*/
 }

@@ -127,5 +127,8 @@ void Kopiec::Usun(){
 }
 
 void Kopiec::pop(){
-	pop_heap(K.begin(), K.end());
+	if(!K.empty()){
+		pop_heap(K.begin(), K.end());
+		K.pop_back();
+	}
 }
