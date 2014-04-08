@@ -133,7 +133,7 @@ cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
 case 4:
     if (stosLiczb.size() == 0)
     {
-        cout << "W kolejce nie znajduja sie zadne liczby."<<endl<<endl;
+        cout << "W stosie nie znajduja sie zadne liczby."<<endl<<endl;
         cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
          getch();
         system( "cls" );
