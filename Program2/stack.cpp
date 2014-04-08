@@ -32,7 +32,11 @@ class Stack
 		void removeElement()
 		{
 			Element<type>* k = first;
-			first = first->next;
+				
+				if(!first)
+				else 
+					first = first->next;
+				
 			delete k;
 		}
 		
@@ -64,9 +68,9 @@ class Stack
 int main()
 {
 	Stack<float> s;
-	s.addElement(3.5);
-	s.addElement(5);
-	s.addElement(8);
+//	s.addElement(3.5);
+//	s.addElement(5);
+//	s.addElement(8);
 	s.removeElement();
 	//s.addElement(11);
 	cout<<"Rozmiar: "<<s.getSize()<<endl;

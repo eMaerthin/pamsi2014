@@ -10,13 +10,13 @@ struct Element
 };
 
 template <class type>
-class Stack
+class List
 {
 	Element<type>* first;
 	Element<type>* last;
 	
 	public:
-		Stack()
+		List()
 		{
 			first = NULL;
 			last = NULL;
@@ -105,15 +105,15 @@ class Stack
 
 int main()
 {
-	Stack<float> s;
-	s.addFirstElement(3.5);
-	s.addLastElement(8);
-	s.addFirstElement(5);
-	s.removeFirstElement();
-	s.addFirstElement(11);
-	//s.removeLastElement();
-	cout<<"Rozmiar: "<<s.getSize()<<endl;
-	s.showList();
+	List<float> l;
+	l.addFirstElement(3.5);
+	l.addLastElement(8);
+	l.addFirstElement(5);
+	l.removeFirstElement();
+	l.addFirstElement(11);
+	//l.removeLastElement();
+	cout<<"Rozmiar: "<<l.getSize()<<endl;
+	l.showList();
 	
 	system("PAUSE");
 	return 0;

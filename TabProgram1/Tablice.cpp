@@ -12,13 +12,13 @@ int* WczTab(int* t, int iR)
 	cout << endl;
 	for (int i = 0; i < iR; i++)
 	{	
-		cout << "Podaj wartoœci do tablicy" << endl;
+		cout << "Podaj wartosci do tablicy" << endl;
 		cin >> a;
 		t[i] = a;
 	}
 	
 	return t;
-		}
+}
 
 void WysTab(int *t, int iR)
 {
@@ -27,7 +27,7 @@ void WysTab(int *t, int iR)
 	{
 		cout << t[i]<< " ";
 	}
-
+	
 	cout << endl;
 
 }
@@ -69,7 +69,7 @@ void ZapPlBin(int *t, int iR)
 	fstream plik("tab.dat", ios::out | ios::binary);
 	for (int i = 0; i < iR; i++)
 	{
-		plik << *t++<< " ";
+		plik.write((char*)t++,sizeof(int));
 	}
 	plik.close();
 
@@ -86,7 +86,12 @@ void WczPlBin(int *t, int iR)
 	}
 	int a = 0;
 	while (!liczby.eof())
-		liczby >> t[a++];
+	{
+		char* temp = new char[sizeof(int)];
+ 		liczby.read(temp, sizeof(int));
+ 		int* number = (int*)(temp);
+ 		t[a++] = *number;
+ 	}
 
 	liczby.close();
 }
@@ -94,8 +99,6 @@ void WczPlBin(int *t, int iR)
 int* WypLos(int *t, int iR)
 {
 	srand((unsigned)time(NULL));
-	cout << "Iloma liczbami losowymi wypelnic tablice ??" << endl;
-	cin >> iR;
 	for (int i = 0; i < iR; i++)
 	{
 		t[i] = rand()%100;
@@ -122,6 +125,10 @@ int main(){
 	int* tab2;
 	int tab[iR];
 	int opcja;
+	for (int i = 0; i < iR; i++)
+	{
+		tab[i]= 0;
+	}
 	
 
 	do{
