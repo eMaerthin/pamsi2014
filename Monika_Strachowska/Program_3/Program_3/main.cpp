@@ -75,17 +75,26 @@ void Stos <T>::usuwanieElementow() {
 
 template <class T>
 bool Stos <T>::wyszukiwanieElementow() {
-	T el;
+	T el, li;
 	cout << "Jaki element wyszukac?\n";
 	cin >> el;
+	stack <T> stosTmp1;
+	stack <T> stosTmp2;
+	stosTmp1 = stos;
 	for(int i = 0; i < stos.size(); i++) {
-		if((stos.top() - i) == el) {
+		li = stosTmp1.top();
+		if(li == el) {
 			cout << "Element znajduje sie w stosie"
 				<< "\njest to " << i << " element od gory\n";
 			return true;
 		}
+		else {
+			stosTmp1.pop();
+			stosTmp2.push(li);
+		}
 	}
 	cout << "Nie ma takiego elementu na stosie\n";
+	//stos = stosTmp;
 	return false;
 }
 
@@ -253,6 +262,12 @@ int main() {
 	s->dodawanieElementow();
 	s->dodawanieElementow();
 	s->dodawanieElementow();
+	s->wyswietlanie();
+	s->wyszukiwanieElementow();
+	s->wyswietlanie();
+	s->wyszukiwanieElementow();
+	s->wyswietlanie();
+	s->wyszukiwanieElementow();
 	s->wyswietlanie();
 	s->wyszukiwanieElementow();
 	s->wyswietlanie();

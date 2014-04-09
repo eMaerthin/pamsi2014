@@ -6,27 +6,28 @@ using namespace std;
 
 
 ShellSort::ShellSort(void)
+	: czas(0)
 {
 }
 
 
 ShellSort::ShellSort(int rozmiar1, int rozkald1, int uporzadkowanie1)
 {
+	
 	setRozklad(rozkald1);
 	setRozmiar(rozmiar1);
 	setUporzadkowanie(uporzadkowanie1);
 	tablica = new int[rozmiar1];
 	uzupelnianeTablicy();
-	wyswietlanieTablicy();
 	wstepneSortowanie();
-	//wyswietlanieTablicy();
 	__int64 poczatek = 0, koniec = 0;
 	QueryPerformanceCounter((LARGE_INTEGER*) & poczatek);
 	algorytmSS();
 	QueryPerformanceCounter((LARGE_INTEGER*) & koniec);
-	__int64 czas = koniec - poczatek;
-	cout << "\n\n Czas " << czas << endl;
-	wyswietlanieTablicy();
+	czas = (long double) (koniec - poczatek);
+	__int64 czestotliwosc;
+	QueryPerformanceFrequency((LARGE_INTEGER*) & czestotliwosc);
+	czas = (long double) (czas * 1000  / czestotliwosc);
 }
 
 
@@ -37,27 +38,23 @@ ShellSort::~ShellSort(void)
 
 void ShellSort::algorytmSS(void)
 {
-	/*for(int i = 0; i < rozmiar; i++)
-		tablica[i] = rozmiar - 1;*/
-	int h = 1;
-	do {
-		h = 3 * h + 1;
-	}while(h < rozmiar);
-	h = h % 9; 
-	if(h > 0)
-		podzial = h - 1;
-	else podzial = 1; 
-	do {
-		for(int j = rozmiar - podzial - 1; j >= 0; j--) {
-			int x = tablica[j];
-			int i = j + podzial;
-			do {
-				tablica[i - podzial] = tablica[i];
-				i += podzial;
-			}while((i < rozmiar) && (x > tablica[i])) ;
-			tablica[i - podzial] = x;
+	int i, j;
+	for(int podzial = rozmiar / 3; podzial > 0; podzial /= 3) {
+		for( i = podzial; i < rozmiar; i++) {
+			int temp = tablica[i];
+			for(j = i; j >= podzial; j -= podzial) {
+				if(temp < tablica[j - podzial])
+					tablica[j] = tablica[j - podzial];
+				else
+					break;
+			}
+			tablica[j] = temp;
 		}
-		podzial = podzial / 3;
-	}while(podzial > 0);
+	}
+}
 
+
+long double ShellSort::getCzas(void)
+{
+	return czas;
 }
