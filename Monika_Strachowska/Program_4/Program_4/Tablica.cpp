@@ -60,10 +60,10 @@ int Tablica::getUporzadkowanie(void)
 
 void Tablica::wyswietlanieTablicy(void)
 {
-	/*for(int i = 0; i < rozmiar; i++)
+	for(int i = 0; i < rozmiar; i++)
 		cout << tablica[i] << " ";
-	cout << endl;*/
-	/*fstream plik("to.txt", ios::out | ios::app);
+	cout << endl;
+	/*fstream plik("wyniki.txt", ios::out | ios::app);
 	plik << rozmiar << " "<< uporzadkowanie << " "<< rozklad << endl;
 	for(int i = 0; i < rozmiar; i++)
 		plik << tablica[i] << " ";
@@ -74,8 +74,6 @@ void Tablica::wyswietlanieTablicy(void)
 void Tablica::uzupelnianeTablicy(void)
 {
 	for(int i = 0; i < rozmiar; i++) tablica[i] = 0;
-	double eksperymenty = 4000;
-	double liczba = 4*rozmiar/100;
 	default_random_engine generator;
 	//rozklad jednostajny
 	if(rozklad == 0) {
@@ -83,7 +81,7 @@ void Tablica::uzupelnianeTablicy(void)
 		for(int i = 0; i < rozmiar; i++) {
 			uniform_real_distribution<> unif_dist(0.0,1.0);
 			variate_generator<mt19937&, uniform_real_distribution<>> unif_sampler(rng, unif_dist);
-			tablica[i] = unif_sampler() * 10;
+			tablica[i] = (int)(unif_sampler() * 10);
 		}
 	}
 	//rozkald normalny
@@ -92,7 +90,7 @@ void Tablica::uzupelnianeTablicy(void)
 		for(int i = 0; i < rozmiar; i++) {
 			normal_distribution<> norm_dist(0.0,5.0);
 			variate_generator<mt19937&, normal_distribution<>> normal_sampler(rng, norm_dist);
-			tablica[i] = normal_sampler() * 10;
+			tablica[i] = (int)(normal_sampler() * 10);
 		}
 	}
 	//rozklad poissona
@@ -114,7 +112,6 @@ void Tablica::wstepneSortowanie(void)
 	else if(uporzadkowanie == 1) procent = 0.1;
 	else if(uporzadkowanie == 2) procent = 0.5;
 	else if(uporzadkowanie == 3) procent = 0.9;
-	wyswietlanieTablicy();
 	algorytmT(0,(int)(floor(rozmiar - (rozmiar * procent))-1));
 }
 
