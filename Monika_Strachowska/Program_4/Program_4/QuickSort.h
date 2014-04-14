@@ -6,6 +6,10 @@ public:
 	QuickSort(void);
 	QuickSort(int rozmiar1, int rozkald1, int uporzadkowanie1);
 	~QuickSort(void);
-	void algorytm(int lewy, int prawy);
+	void algorytmQS(int lewy, int prawy);
+private:
+	long double czas;
+public:
+	long double getCzas(void);
 };
 

@@ -1,10 +1,12 @@
 #include "BubbleSort.h"
 #include <iostream>
 #include <random>
+#include <Windows.h>
 
 using namespace std;
 
 BubbleSort::BubbleSort(void)
+	: czas(0)
 {
 }
 
@@ -15,11 +17,16 @@ BubbleSort::BubbleSort(int rozmiar1, int rozkald1, int uporzadkowanie1)
 	setUporzadkowanie(uporzadkowanie1);
 	tablica = new int[rozmiar1];
 	uzupelnianeTablicy();
-	wyswietlanieTablicy();
 	wstepneSortowanie();
-	wyswietlanieTablicy();
-	algorytm();
-	wyswietlanieTablicy();
+
+	__int64 poczatek = 0, koniec = 0;
+	QueryPerformanceCounter((LARGE_INTEGER*) & poczatek);
+	algorytmBS();
+	QueryPerformanceCounter((LARGE_INTEGER*) & koniec);
+	czas = (long double) (koniec - poczatek);
+	__int64 czestotliwosc;
+	QueryPerformanceFrequency((LARGE_INTEGER*) & czestotliwosc);
+	czas = (long double) (czas * 1000  / czestotliwosc);
 }
 
 
@@ -28,7 +35,7 @@ BubbleSort::~BubbleSort(void)
 }
 
 
-void BubbleSort::algorytm(void)
+void BubbleSort::algorytmBS(void)
 {
 	int n = rozmiar;
 	do {
@@ -43,4 +50,7 @@ void BubbleSort::algorytm(void)
 }
 
 
-
+long double BubbleSort::getCzas(void)
+{
+	return czas;
+}
