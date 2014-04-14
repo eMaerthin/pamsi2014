@@ -29,26 +29,22 @@ void stos::Zdejmij() {
 }
 
 void stos::Wyswietl() {
-    int rozmiar=lista.size();
-    if(rozmiar==0) {
+	int rozmiar=lista.size();
+	if(rozmiar==0) {
 		cout << "Stos jest pusty" << endl;
     }
     else {
-    	cout << "Na stosie jest " << rozmiar << " elementow:" << endl;
-	    int * tmp = new int(rozmiar); //tworzy tablice dynamiczna ktora przechowa elementy stosu
-	    for(int i=0; i<rozmiar; i++) {
-	        tmp[i]=lista.top(); //zczytuje element ze stosu
-	        lista.pop(); //zdejmuje zczytany element ze stosu
-	        cout << tmp[i] << " "; //wyswietla wartosc tego elementu
-	    }
-	    cout << endl;
-	    for(int i=0; i<rozmiar; i++) {
-	        Dodaj(tmp[i]); //dodaje z powrotem elementy na stos
-	    }
-	    delete [] tmp; //usuwa tablice dynamiczna
+		cout << "Na stosie jest " << rozmiar << " elementow:" << endl;
+		stack <int> tmp = lista;
+		int wartosc;
+		while(!tmp.empty()) {
+		    wartosc = tmp.top();
+		    cout << wartosc << " ";
+		    tmp.pop();
+		}
+		cout << endl;
 	}
 }
-
 
 int main() {
     char opcja;
