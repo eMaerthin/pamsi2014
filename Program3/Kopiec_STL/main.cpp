@@ -3,6 +3,7 @@
 #include <vector>
 #include <ctime>
 #include <cstdlib>
+#include <random>
 
 
 
@@ -22,7 +23,7 @@ class Kopiec{
         void menu();
 
 
-        Kopiec(){tab={};}
+        Kopiec(){}
         virtual ~Kopiec(){}
     };
 
@@ -30,16 +31,18 @@ class Kopiec{
 template <class T>
 void Kopiec<T>::StworzTablice()
 {
+    default_random_engine generator;
+    uniform_int_distribution<T> distribution(5,2000); //rozklad jednostajny
+
     int rozmiar;
-    int zakres;
     cout<<"Podaj liczbe elementow: \n";
     cin>>rozmiar;
-    cout<<"Podaj maksymalna mozliwa wylosowana wartosc: \n";
-    cin>>zakres;
 
-    for(int i=1; i<rozmiar; i++)
+    tab.clear();
+
+    for(int i=0; i<rozmiar; i++)
     {
-        tab.insert(tab.end(), ( rand() % zakres ) + 1);
+        tab.push_back(distribution(generator));
     }
 }
 
@@ -47,16 +50,41 @@ template <class T>
 void Kopiec<T>::UsunSzczyt()
 {
     pop_heap(tab.begin(), tab.end());
+    tab.pop_back();
 }
 
 template <class T>
 void Kopiec<T>::WyswietlKopiec()
 {
-    cout<<"\n";
-    for(unsigned int i=0; i<tab.size(); i++)
-        cout<<tab[i]<<endl;
 
 
+	// obliczenie glebokosci drzewa i max szerokosci liczb
+	int treeSize = log2(tab.size());
+	int minVal = tab[0];
+	for (int i = 0; i < tab.size() / 2; ++i)
+		if (minVal>tab[tab.size() - 1 - i])
+			minVal = tab[tab.size() - 1 - i];
+	int printWidth = log10(tab[0]);
+	if(printWidth < log10(abs(minVal))+1)
+		printWidth = log10(abs(minVal))+1;
+	printWidth += 1;
+
+	// zaczynajac od korzenia drzewa
+	for (int i = 0; i <= treeSize; ++i)
+	{
+		int n = pow(2, i); // zmienna opisujaca ile liczb miesci sie na danym poziomie drzewa
+
+		cout.width(printWidth*pow(2, treeSize-i)); // ustawienie szerokosci pierwszego elementu od lewej
+		for (int j = 0; j < n; ++j)
+		{
+			if (n + j - 1 >= tab.size()) // jesli element nie istnieje przerywamy wypisywanie kluczy
+				break;
+			cout << tab[n + j - 1]; // wypisanie elementu
+			cout.width(printWidth * pow(2, treeSize - i + 1)); // i ustawienie innej szerokosci nastepnych elementow
+		}
+		cout.width(0); // wyzerowanie szerokosci
+		cout << endl;
+	}
 }
 
 template <class T>
@@ -107,7 +135,6 @@ void Kopiec<T>::menu()
 
 int main()
 {
-    srand(time(NULL));
 
     Kopiec<int> k;
 
