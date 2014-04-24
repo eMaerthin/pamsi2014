@@ -18,7 +18,6 @@ BubbleSort::BubbleSort(int rozmiar1, int rozkald1, int uporzadkowanie1)
 	tablica = new int[rozmiar1];
 	uzupelnianeTablicy();
 	wstepneSortowanie();
-
 	__int64 poczatek = 0, koniec = 0;
 	QueryPerformanceCounter((LARGE_INTEGER*) & poczatek);
 	algorytmBS();
