@@ -104,54 +104,7 @@ void eksperyment()
 
 int main()
 {
-	cout << wylosuj_prawdop_log2(5000) << endl;
-	//eksperyment();
-	//Drzewo<int> moje, nowy;
-
-	//moje.wczytaj_graf_z_pliku("graf10.txt");
-	/*
-	moje.graf_ER(10, 0.7);
-	cout << "Wczytalem" << moje.czy_spojny() << endl;
-	nowy = moje;
-
-	nowy.alg_Prima();
-
-	nowy.wyswietl_graf_lista();
-
-	cout << endl << endl;
-	nowy = moje;
-	nowy.alg_Kruskala();
-
-	nowy.wyswietl_graf_lista();*/
-
-	//moje.wyswietl_graf_tablica();
-
-	//cout << endl << endl << moje.czas_sort() << endl << endl;
-
-	/*moje.alg_Kruskala();
-
-
-	moje.wyswietl_graf_lista();
-
-	cout << endl << endl;
-
-	moje.wyswietl_graf_tablica();
-
-	cout << endl << endl << endl << endl;
-
-
-	moje.alg_Prima();
-
-
-	moje.wyswietl_graf_lista();
-
-	cout << endl << endl;
-
-	moje.wyswietl_graf_tablica();
-
-	cout << endl << endl;*/
-	//moje.zapisz_graf_do_pliku("nowy_graf.txt");
-
+	eksperyment();
 
 	system("PAUSE");
 	return 0;
