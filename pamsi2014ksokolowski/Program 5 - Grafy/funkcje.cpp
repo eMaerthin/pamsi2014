@@ -1,5 +1,7 @@
 #include "funkcje.hpp"
 
+using namespace std;
+
 int silnia(int n)
 {
 	if (n == 0) return 1;
@@ -27,4 +29,7 @@ double wylosuj_prawdop_min2(int n)
 double wylosuj_prawdop_min3(int n)
 {
 	return (1/cbrt(n));
+}
+void funkcja(Drzewo<int> moje){
+	cout << endl;
 }
