@@ -37,6 +37,15 @@ for(int r=0;r<31;r++)
 cout << char(188)<<endl;
 cout << "Twoj Wybor"<<char(175);
 cin>>opcja;
+if(cin.fail())
+     do {
+
+         cout << "Niedozwolony Znak! Wprowadz Ponownie: ";
+         cin.clear();
+        cin.sync();
+        cin >> opcja;
+
+      }while(cin.fail());
 
 switch(opcja){
 
@@ -47,16 +56,16 @@ case 1:
 	do{
     cout<< " #";
 	cin >> liczba;
-	do{
+
       if(cin.fail())
-      {
+     do {
 
          cout << "Niedozwolony Znak! Wprowadz Ponownie: ";
          cin.clear();
         cin.sync();
         cin >> liczba;
 
-      }}while(cin.fail());
+      }while(cin.fail());
 
         stosLiczb.push( liczba );
 	}while(liczba != 99);

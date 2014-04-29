@@ -32,31 +32,53 @@ for(int r=0;r<39;r++)
 
 }
 cout << char(188)<<endl;
+if(kolejka.size()>0){
+cout<<endl;
+    for(int r=0;r<kolejka.size()+20;r++){
+   cout << char(205);}
+cout<<endl;
+cout << "Wygenerowana Kolejka"<<endl;
+kolejka_tmp = kolejka;
+while(!kolejka_tmp.empty())
+{
+    cout <<char(60)<<kolejka_tmp.front();
+    kolejka_tmp.pop();
+}
+cout<<endl;
+    for(int r=0;r<kolejka.size()+20;r++){
+   cout << char(205);}
+
+        cout<<endl;
+}
 cout << "Twoj Wybor"<<char(175);
 cin>>opcja;
+if(cin.fail())
+      do{
+
+         cout << "Niedozwolony Znak! Wprowadz Ponownie: ";
+         cin.clear();
+        cin.sync();
+        cin >> opcja;
+
+      }while(cin.fail());
 
 switch(opcja){
 case 1:
     cout << "Jaka Liczbe dodac na koniec kolejki ? : ";
     cin >> liczba;
-    do{
+
       if(cin.fail())
-      {
+      do{
 
          cout << "Niedozwolony Znak! Wprowadz Ponownie: ";
          cin.clear();
         cin.sync();
         cin >> liczba;
 
-      }}while(cin.fail());
+      }while(cin.fail());
 kolejka.push(liczba);
-kolejka_tmp = kolejka;
-while(!kolejka_tmp.empty())
-{
-    cout <<"<-"<<kolejka_tmp.front();
-    kolejka_tmp.pop();
 
-}
+cout << "Dodano "<< liczba << " do kolejki."<<endl;
 cout<<endl;
 cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
          getch();
@@ -68,13 +90,6 @@ case 2:
     kolejka.pop();
     kolejka_tmp = kolejka;
     cout << "Usunieto pierwszy element kolejki."<<endl;
-
-while(!kolejka_tmp.empty())
-{
-    cout <<"<-"<<kolejka_tmp.front();
-    kolejka_tmp.pop();
-}
-cout<<endl;
 }
 else
     cout << "W kolejce nie znajduja sie zadne liczby."<<endl<<endl;
@@ -86,12 +101,13 @@ else
 case 3:
     if (kolejka.size()!= 0){
     cout << "W kolejce ";
-if(kolejka.size()== 1)                             cout <<"znajduje sie "<<kolejka.size()<<" liczba"<<endl;
-if(kolejka.size() < 5 && kolejka.size() > 1  )     cout <<"znajduja sie "<<kolejka.size()<<" liczby"<<endl;
-if(kolejka.size() > 4)                             cout <<"znajduje sie "<<kolejka.size()<<" liczb"<<endl;
+if(kolejka.size()== 1)                             cout <<"znajduje sie "<<kolejka.size()<<" liczba."<<endl;
+if(kolejka.size() < 5 && kolejka.size() > 1  )     cout <<"znajduja sie "<<kolejka.size()<<" liczby."<<endl;
+if(kolejka.size() > 4)                             cout <<"znajduje sie "<<kolejka.size()<<" liczb."<<endl;
             }
     if (kolejka.size() == 0)
         cout << "W kolejce nie znajduja sie zadne liczby."<<endl<<endl;
+        cout<<endl;
         cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
          getch();
         system( "cls" );
