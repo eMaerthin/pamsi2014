@@ -170,9 +170,9 @@ int main()
 	cin>>rozklad;
 	cout<<"Wybierz typ tablicy\n0-tablica nieuporzadkowana\n1-10% posortowane\n2-50% posortowane\n3-90% posortowane\n";
 	cin>>typ;
-	T=wypelnij(ilosc,typ,rozklad);
 	for(int i=0; i<n; i++)
 	{
+	T=wypelnij(ilosc,typ,rozklad);
 	boost::timer t2;
 	sortowanie_przez_kopcowanie(T,ilosc);
 	czas4+=t2.elapsed();
@@ -180,6 +180,7 @@ int main()
     cout<<"1.Sortowanie przez kopcowanie:\nSredni czas obliczony dla "<<n<<" powtorzen wynosi: "<<czas4/n<<" s.\n";
     for(int i=0; i<n; i++)
 	{
+	T=wypelnij(ilosc,typ,rozklad);
 	boost::timer t2;
 	sortowanie_przez_wstawianie(T,ilosc);
 	czas2+=t2.elapsed();
@@ -187,6 +188,7 @@ int main()
     cout<<"2.Sortowanie przez wstawianie:\nSredni czas obliczony dla "<<n<<" powtorzen wynosi: "<<czas2/n<<" s.\n";
 	for(int i=0; i<n; i++)
 	{
+	T=wypelnij(ilosc,typ,rozklad);
 	boost::timer t3;
 	sortowanie_szybkie(T,0,ilosc-1);
 	czas3+=t3.elapsed();
@@ -194,6 +196,7 @@ int main()
     cout<<"3.Sortowanie szybkie:\nSredni czas obliczony dla "<<n<<" powtorzen wynosi: "<<czas3/n<<" s.\n";
 	for(int i=0; i<n; i++)
 	{
+	T=wypelnij(ilosc,typ,rozklad);
 	boost::timer t1;
 	sortowanie_babelkowe(T,ilosc);
 	czas1+=t1.elapsed();
