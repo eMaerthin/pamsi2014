@@ -16,32 +16,45 @@
 template<class TYP>
 class Drzewo : public Graf<TYP>{
 
-	boost::posix_time::time_duration czas_ostatniego_sortowania;
+	boost::posix_time::time_duration czas_ostatniego;//zmienna zapamietujaca czas ostatniego wykonywania algorytmu tworzenia MST
 
+	//Klasa pomocnicza zapamietujaca obydwa wierzcholki i wage ich polaczenia
 	struct CalePolaczenie : public Polaczenie{
 		int pierwszy_wierzcholek;
+
+		CalePolaczenie() {}
+		CalePolaczenie(int p_wierz, int d_wierz, TYP wag) : Polaczenie(d_wierz, wag), pierwszy_wierzcholek(p_wierz)
+		{}
+
+		bool operator==(const CalePolaczenie& arg) const {
+			return ((pierwszy_wierzcholek == arg.pierwszy_wierzcholek) && (drugi_wierzcholek == arg.drugi_wierzcholek) && (waga == arg.waga));
+		}
 	};
 
 public:
 	Drzewo() {}
 
-	//bool spojnosc;
-	int czas_sort() const
+	//Funkcja podaje czas ostatniego wykonywania algorytmu
+	int _czas() const
 	{
-		return (int)czas_ostatniego_sortowania.total_milliseconds();
+		return (int)czas_ostatniego.total_milliseconds();
 	}
 
+	//Tworzenie MST algorytmem Kruskala
 	bool alg_Kruskala();
+	//Tworzenie MST algorytmem Prima
 	void alg_Prima();
+	//Tworzenie MST algorytmem Boruvki
 	void alg_Boruvki();
 
+	//Sprawdzenie czy drzewo jest spojne
 	bool czy_spojny();
 
 private:
-	bool czy_brak_krawedzi() const;
+	//Wstawienie do listy 'lista_wag' wszystkich polaczen juz posortowanych od najlzejszych
 	void wez_posortowane_wagi(std::list<CalePolaczenie>& lista_wag);
+	//Znajduje pozycje wierzcholka 'wierz'
 	int znajdz_id(const std::vector< std::vector<int> >& las, int wierz) const;
-	std::size_t znajdz_najlzejsze_mozliwe(std::list<CalePolaczenie>& polaczenia, const std::vector< std::vector<int> >& elementy, int indeks_wek);
 };
 //*******************************************************************************************************
 
@@ -81,25 +94,25 @@ bool Drzewo<TYP>::alg_Kruskala()
 			id_drzew.erase(id_drzew.begin() + d_id);
 		}
 		wagi.pop_front();
+		//std::cout << "!" << id_drzew.size() << endl;
 	}
 
 	boost::posix_time::ptime k = boost::posix_time::microsec_clock::local_time();
 
-	czas_ostatniego_sortowania = k - p;
+	czas_ostatniego = k - p;
 
+	//std::cout << "!1!\n";
 	return (id_drzew.size() == 1);//jezeli jest rozmiar rozny od zera, znaczy to ze graf jest niespojny (nie zostalo jedno drzewo na koncu)
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 template <class TYP>
 void Drzewo<TYP>::alg_Prima()
 {
-	std::size_t rozmiar_koncowy = graf_lista.size();
-	std::list<CalePolaczenie> wagi;
-
-	wez_posortowane_wagi(wagi);
+	std::size_t rozmiar_koncowy = graf_lista.size(), i, j;
 
 	std::list<int>	dodane_wierzcholki;
-	std::vector< std::list<CalePolaczenie>::iterator > lista_mozliwych_polaczen; //do przechowywania info gdzie leza polaczenia w "wagi"
+	std::vector< CalePolaczenie > lista_mozliwych_polaczen;
+	std::vector< std::vector<TYP> > kopia_graf_tab = graf_tablica;
 
 	usun_wszystko();
 	//Dodanie wierzcholka startowego
@@ -108,58 +121,63 @@ void Drzewo<TYP>::alg_Prima()
 	this->dodaj_wierzcholek();
 	dodane_wierzcholki.push_back(wierz_startowy);
 
-	std::list<CalePolaczenie>::iterator iter = wagi.begin();
 	std::list<int>::iterator iter_dodanych;
 
-	int schowek;
+	CalePolaczenie *tab; //tablica by szybko posortowac
+	std::size_t rozmiar;
+	int p_wierz, d_wierz, waga;
 
 	boost::posix_time::ptime p = boost::posix_time::microsec_clock::local_time();
 
-	while (rozmiar_koncowy != dodane_wierzcholki.size()/*wagi.size() + rozmiar_koncowy*/){
-
-		//zapisujemy mozliwe polaczenia z wierzcholkami juz znajdujacymi sie w drzewie
-		for (iter = wagi.begin(); iter != wagi.end(); ++iter){
-			for (iter_dodanych = dodane_wierzcholki.begin(); iter_dodanych != dodane_wierzcholki.end(); ++iter_dodanych){
-				if (iter->pierwszy_wierzcholek == *iter_dodanych || iter->drugi_wierzcholek == *iter_dodanych){
-					if (iter->drugi_wierzcholek == *iter_dodanych){ //zamieniamy by ten wierzcholek juz znajdujacy sie w drzewie byl zawsze jako pierwszy w klasie CalePolaczenie w celu ulatwienia dalszych operacji
-						schowek = iter->drugi_wierzcholek;
-						iter->drugi_wierzcholek = iter->pierwszy_wierzcholek;
-						iter->pierwszy_wierzcholek = schowek;
-					}
-
-					lista_mozliwych_polaczen.push_back(iter);
-					break;
-				}
+	while (rozmiar_koncowy > dodane_wierzcholki.size()){
+		rozmiar = kopia_graf_tab.size();
+		for (iter_dodanych = dodane_wierzcholki.begin(); iter_dodanych != dodane_wierzcholki.end(); ++iter_dodanych){
+			for (j = 0; j < rozmiar; ++j){
+				if (kopia_graf_tab[*iter_dodanych][j] != -1)
+					lista_mozliwych_polaczen.push_back(CalePolaczenie(*iter_dodanych, j, kopia_graf_tab[*iter_dodanych][j]));
 			}
 		}
+		//posortowanie listy_mozliwych_polaczen
+		rozmiar = lista_mozliwych_polaczen.size();
+		tab = new CalePolaczenie[rozmiar];
+		for (i = 0; i < (int)rozmiar; ++i){
+			tab[i] = lista_mozliwych_polaczen[i];
+		}
 
-		for (int i = 0; i < (int)lista_mozliwych_polaczen.size(); ++i){
-			if (find(dodane_wierzcholki.begin(), dodane_wierzcholki.end(), lista_mozliwych_polaczen[i]->drugi_wierzcholek) == dodane_wierzcholki.end()){
-				dodaj_polaczenie(lista_mozliwych_polaczen[i]->pierwszy_wierzcholek, lista_mozliwych_polaczen[i]->drugi_wierzcholek, lista_mozliwych_polaczen[i]->waga);
-				dodane_wierzcholki.push_back(lista_mozliwych_polaczen[i]->drugi_wierzcholek);
-				
-				wagi.erase(lista_mozliwych_polaczen[i]);
+		quicksort(tab, 0, rozmiar - 1);
+		for (i = 0; i < (int)rozmiar; ++i){
+			lista_mozliwych_polaczen[i] = tab[i];
+		}
+		//wyszukanie polaczenia, ktore mozna dodac do drzewa
+		for (i = 0; i < (int)lista_mozliwych_polaczen.size(); ++i){
+			p_wierz = lista_mozliwych_polaczen[i].pierwszy_wierzcholek;
+			d_wierz = lista_mozliwych_polaczen[i].drugi_wierzcholek;
+			waga = lista_mozliwych_polaczen[i].waga;
 
-				lista_mozliwych_polaczen.clear();
+			kopia_graf_tab[p_wierz][d_wierz] = -1;
+
+			if (find(dodane_wierzcholki.begin(), dodane_wierzcholki.end(), d_wierz) == dodane_wierzcholki.end()){
+				dodaj_polaczenie(p_wierz, d_wierz, waga);
+				dodane_wierzcholki.push_back(d_wierz);
 				break;
 			}
+
 		}
-		//wagi.sort();
-		//std::cout << dodane_wierzcholki.size() << endl;
+		lista_mozliwych_polaczen.clear();
 	}
 
 	boost::posix_time::ptime k = boost::posix_time::microsec_clock::local_time();
 
-	czas_ostatniego_sortowania = k - p;
+	czas_ostatniego = k - p;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 template <class TYP>
 void Drzewo<TYP>::alg_Boruvki()
 {
-	if (!czy_spojny()){
+	/*if (!czy_spojny()){
 		std::cout << "\nNie mozna wykonac algorytmu gdyz graf nie jest spojny!" << std::endl;
 		return;
-	}
+	}*/
 
 	std::list<CalePolaczenie> wagi;
 
@@ -177,18 +195,37 @@ void Drzewo<TYP>::alg_Boruvki()
 		drzewa.push_back(schowek);
 	}
 
-	std::size_t indeks_wagi;
-	int p_id, d_id;
+	int p_id = -1, d_id = -2;
+	std::size_t i, j;
 	std::list<CalePolaczenie>::iterator iter;
 
 	boost::posix_time::ptime p = boost::posix_time::microsec_clock::local_time();
 
 	while (drzewa.size() > 1){
-		for (int i = 0; i < (int)drzewa.size(); ++i){
-			indeks_wagi = znajdz_najlzejsze_mozliwe(wagi, drzewa, i);
-			iter = wagi.begin();
-			for (; indeks_wagi; --indeks_wagi){ ++iter; }
+		for (i = 0; i < drzewa.size(); ++i){
+			TYP najm_waga = (--wagi.end())->waga; //pobranie najwyzszej wagi by miec z czym porownywac
 
+			std::size_t rozmiar = drzewa[i].size();
+			std::list<CalePolaczenie>::iterator j_iter, kopia;
+
+			iter = --wagi.end();
+			for (j = 0; j < rozmiar; ++j){
+				for (j_iter = wagi.begin(); j_iter != wagi.end(); ++j_iter){
+					if (drzewa[i][j] == j_iter->pierwszy_wierzcholek || drzewa[i][j] == j_iter->drugi_wierzcholek){
+						p_id = znajdz_id(drzewa, j_iter->pierwszy_wierzcholek);
+						d_id = znajdz_id(drzewa, j_iter->drugi_wierzcholek);
+
+						if (j_iter->waga < najm_waga && p_id != d_id){
+							najm_waga = j_iter->waga;
+							if (iter != (--wagi.end())){
+								wagi.erase(iter);
+							}
+							iter = j_iter;
+							break;
+						}
+					}
+				}
+			}
 			p_id = znajdz_id(drzewa, iter->pierwszy_wierzcholek);
 			d_id = znajdz_id(drzewa, iter->drugi_wierzcholek);
 
@@ -203,7 +240,7 @@ void Drzewo<TYP>::alg_Boruvki()
 
 	boost::posix_time::ptime k = boost::posix_time::microsec_clock::local_time();
 
-	czas_ostatniego_sortowania = k - p;
+	czas_ostatniego = k - p;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -222,40 +259,34 @@ template <class TYP>
 void Drzewo<TYP>::wez_posortowane_wagi(std::list<CalePolaczenie>& lista_wag)
 {
 	CalePolaczenie schowek;
-	int i, j;
-	CalePolaczenie *tab = new CalePolaczenie[(int)graf_lista.size()];
+	std::size_t i, j;
 
 	//Dodanie wag i ich posortowanie rosnaco
-	for (i = 0; i < (int)graf_lista.size(); ++i){
-		for (j = 0; j < (int)graf_lista[i].size(); ++j){
-			schowek.pierwszy_wierzcholek = i;
-			schowek.drugi_wierzcholek = graf_lista[i][j].drugi_wierzcholek;
-			schowek.waga = graf_lista[i][j].waga;
+	for (i = 0; i < graf_lista.size(); ++i){
+		for (j = 0; j < graf_lista[i].size(); ++j){
+			if (graf_lista[i][j].drugi_wierzcholek > (int)i){
+				schowek.pierwszy_wierzcholek = i;
+				schowek.drugi_wierzcholek = graf_lista[i][j].drugi_wierzcholek;
+				schowek.waga = graf_lista[i][j].waga;
 
-			tab[i] = schowek;
-		}
-	}
-	//sort_przez_sc(tab, tab + (int)graf_lista.size());
-	quicksort(tab, 0, (int)graf_lista.size() - 1);
-	for (i = 0; i < (int)graf_lista.size(); ++i){
-		lista_wag.push_back(tab[i]);
-	}
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-template <class TYP>
-bool Drzewo<TYP>::czy_brak_krawedzi() const
-{
-	int rozmiar = graf_tablica.size();
-	int i, j;
-
-	for (i = 0; i < rozmiar; ++i){
-		for (j = 0; j < rozmiar; ++j){
-			if (graf_tablica[i][j] != -1){
-				return false;
+				lista_wag.push_back(schowek);
 			}
 		}
 	}
-	return true;
+	CalePolaczenie *tab = new CalePolaczenie[(int)lista_wag.size()]; //stworzenie tablicy ktora przyspieszy sortowanie
+	std::size_t rozmiar = lista_wag.size();
+
+	for (i = 0; i < rozmiar; ++i){
+		tab[i] = lista_wag.front();
+		lista_wag.pop_front();
+	}
+
+	quicksort(tab, 0, rozmiar - 1);
+	for (i = 0; i < rozmiar; ++i){
+		lista_wag.push_back(tab[i]);
+	}
+
+	delete[] tab;
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 template <class TYP>
@@ -271,30 +302,6 @@ int Drzewo<TYP>::znajdz_id(const std::vector< std::vector<int> >& las, int wierz
 	return -1; //gdy nie znaleziono
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-template <class TYP>
-std::size_t Drzewo<TYP>::znajdz_najlzejsze_mozliwe(std::list<CalePolaczenie>& polaczenia, const std::vector< std::vector<int> >& elementy, int indeks_wek)
-{
-	TYP najm_waga = (--polaczenia.end())->waga; //pobranie najwyzszej wagi by miec z czym porownywac
-	std::size_t indeks = polaczenia.size() - 1;
-
-	std::size_t rozmiar = elementy[indeks_wek].size();
-	std::size_t i, j;
-	std::list<CalePolaczenie>::iterator j_iter;
-
-	for (i = 0; i < rozmiar; ++i){
-		for (j_iter = polaczenia.begin(), j = 0; j_iter != polaczenia.end(); ++j_iter, ++j){
-			if (elementy[indeks_wek][i] == j_iter->pierwszy_wierzcholek || elementy[indeks_wek][i] == j_iter->drugi_wierzcholek){
-				if (j_iter->waga < najm_waga && znajdz_id(elementy, j_iter->pierwszy_wierzcholek) != znajdz_id(elementy, j_iter->drugi_wierzcholek)){
-					najm_waga = j_iter->waga;
-					indeks = j;
-				}
-			}
-		}
-	}
-
-	return indeks;
-}
-
 
 
 #endif
