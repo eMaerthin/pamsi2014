@@ -1,0 +1,26 @@
+iloœæ elementow: 100000
+rozklad: 0
+ilosc posortowanych elementow: 0
+Sortowanie Szybkie: 106825
+
+ilosc posortowanych elementow: 1
+Sortowanie Szybkie: 58432
+
+ilosc posortowanych elementow: 2
+Sortowanie Szybkie: 65520
+
+ilosc posortowanych elementow: 3
+Sortowanie Szybkie: 74667
+
+
+rozklad: 1
+ilosc posortowanych elementow: 0
+Sortowanie Szybkie: 39055
+
+ilosc posortowanych elementow: 1
+Sortowanie Szybkie: 38722
+
+ilosc posortowanych elementow: 2
+Sortowanie Szybkie: 35758
+
+ilosc posortowanych elementow: 3
