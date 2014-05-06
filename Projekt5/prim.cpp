@@ -26,7 +26,7 @@ class graf {
 };
 
 void graf::czytaj_plik(fstream & plik) {
-  plik.open("dane2.txt", ios::in);
+  plik.open("dane3.txt", ios::in);
   int x;
   max=0;
   if( plik.good() == true )
@@ -191,14 +191,14 @@ int main() {
   x.czytaj_plik(plik);
   x.stworz_macierz();
   cout << endl << "Poczatkowe drzewo:" << endl << endl;
-  x.wyswietl_liste();
+  //x.wyswietl_liste();
   x.suma_wag(); 
   x.stworz_min();
   x.stworz_macierz();
   cout << endl << "Minimalne drzewo:" << endl << endl;
-  x.wyswietl_liste();
+  //x.wyswietl_liste();
   x.suma_wag(); 
-  cout << endl << "Macierz polaczen:" << endl << endl;
+  //cout << endl << "Macierz polaczen:" << endl << endl;
   //x.wyswietl_macierz();
   x.zapisz_do_pliku(plik);
   system ("PAUSE");

@@ -4,19 +4,24 @@
 #include <fstream>
 #include <vector>
 #include <list>
+#include <math.h>
+#include <time.h>
 #define ROZMIAR 1000
-#define ROZMIAR2 700
+#define ROZMIAR2 1000
 using namespace std;
 fstream plik;
 
 class graf {
-	list<vector<int>> drzewo;          //Lista zawierajaca wierzcholki oraz wagi drzewa (wektory)
+	list<vector<int> > drzewo;          //Lista zawierajaca wierzcholki oraz wagi drzewa (wektory)
 	int macierz[ROZMIAR2][ROZMIAR2];   //Macierz polaczen
 	int max;						   //Maksymalny indeks macierzy
 	int suma;						   //Suma wag drzewa
 	public:
 	void czytaj_plik(fstream & plik);
 	void zapisz_do_pliku(fstream & plik);
+	void generator_grafu(int n, float p);
+	int sprawdz_spojnosc();
+	void graf_pelny(int n);
 	void stworz_macierz();
 	void sortuj_wagi();
 	void stworz_min();       //Tworzy MDR (po uprzednim posortowaniu wag)
@@ -29,10 +34,11 @@ void graf::czytaj_plik(fstream & plik) {
   plik.open("dane3.txt", ios::in);
   int x;
   max=0;
+  cout << endl;
   if( plik.good() == true )
-	cout << "[Wczytywanie] Uzyskano dostep do pliku" << endl << endl;
+	cout << "[Wczytywanie] Uzyskano dostep do pliku :)" << endl << endl;
   else 
-	cout << "[Wczytywanie] Brak dostepu do pliku" << endl << endl; 
+	cout << "[Wczytywanie] Brak dostepu do pliku :(" << endl << endl; 
   do {
   	vector<int>tmp;
   	for(int i=0; i<3; i++) {
@@ -50,11 +56,12 @@ void graf::czytaj_plik(fstream & plik) {
 
 void graf::zapisz_do_pliku(fstream & plik) {
   plik.open("zapisane.txt", ios::out);
+  cout << endl;
   if( plik.good() == true )
-	cout << "[Zapisywanie] Uzyskano dostep do pliku" << endl << endl;
+	cout << "[Zapisywanie] Uzyskano dostep do pliku :)" << endl << endl;
   else 
-	cout << "[Zapisywanie] Brak dostepu do pliku" << endl << endl; 
-  for(list<vector<int>>::iterator it1=drzewo.begin(); it1!=drzewo.end(); it1++) { //Przeszukiwanie drzewa
+	cout << "[Zapisywanie] Brak dostepu do pliku :(" << endl << endl; 
+  for(list<vector<int> >::iterator it1=drzewo.begin(); it1!=drzewo.end(); it1++) { //Przeszukiwanie drzewa
 	for(vector<int>::iterator it2=(*it1).begin(); it2!=(*it1).end(); it2++) {     //Przeszukiwanie wektora
 	  if(*it2<10)
 	    plik << " ";
@@ -63,6 +70,69 @@ void graf::zapisz_do_pliku(fstream & plik) {
     plik << "\n";
   }
   plik.close();
+}
+
+void graf::generator_grafu(int n, float p) {
+  int waga;
+  vector<int> tmp;
+  max=n-1;
+  srand(time(NULL));
+  for(int i=0; i<n; i++) {
+  	for(int j=0; j<n; j++) {
+  	  macierz[i][j]=-1;
+  	}
+  }
+  for(int i=0; i<n; i++) {
+  	for(int j=0; j<n; j++) {
+  	  if(rand()%100000 < p*100000.f) {
+  	  	waga=rand()%100+10;
+  	  	macierz[i][j]=waga;
+		macierz[j][i]=waga;
+  	  	tmp.push_back(i);
+  	  	tmp.push_back(j);
+  	  	tmp.push_back(waga);
+  	  	drzewo.push_back(tmp);
+  	  	tmp.clear();
+  	  	//cout << i << " " << j << " " << waga << endl;
+  	  }
+  	}
+  }
+}
+
+int graf::sprawdz_spojnosc() {
+  int licz;
+  for(int i=0; i<max; i++) {
+  	licz=0;
+  	for(int j=0; j<=max; j++) {
+  	  if(macierz[i][j]==-1)
+  	    licz++;
+    }
+    if(licz==max) {
+      cout << endl << "[Sprawdzanie spojnosci grafu] Graf nie jest spojny :(" << endl;
+      system ("PAUSE");
+      return 0;
+    }
+  }
+  cout << endl << "[Sprawdzanie spojnosci grafu] Graf jest spojny :)" << endl;
+  return 1;
+}
+
+void graf::graf_pelny(int n) {
+  int waga;
+  vector<int> tmp;
+  max=n;
+  srand(time(NULL));
+  for(int i=0; i<=max; i++) {
+  	for(int j=0; j<=max; j++) {
+  	  waga=rand()%100+10;
+  	  macierz[i][j]=macierz[j][i]=waga;
+  	  tmp.push_back(i);
+  	  tmp.push_back(j);
+  	  tmp.push_back(waga);
+  	  drzewo.push_back(tmp);
+  	  tmp.clear();
+    }
+  }
 }
 
 void graf::stworz_macierz() {
@@ -192,8 +262,70 @@ void graf::wyswietl_macierz() {
 
 int main() {
   graf x;
-  x.czytaj_plik(plik);
-  x.stworz_macierz();
+  int opcja, n;
+  float p;
+  cout << endl << "Skad chcesz wziac parametry grafu?" << endl 
+	   << "0 - z pliku" << endl
+	   << "1 - wygenerowany losowo" << endl 
+	   << "Twoj wybor: ";
+  cin >> opcja;
+  switch(opcja) {
+  	default: 
+	return 0;
+  	
+  	case 0:
+  	x.czytaj_plik(plik);
+  	x.stworz_macierz();
+  	break;
+  	
+  	case 1: {
+  	cout << endl << "Ile ma byc wierzcholkow w grafie?" << endl
+  	   << "0 - 500" << endl
+  	   << "1 - 1000" << endl
+  	   << "2 - 2000" << endl
+  	   << "3 - 4000" << endl
+  	   << "Twoj wybor: ";
+    cin >> opcja;
+    
+    switch(opcja) {
+	  case 0: n=500; break;
+	  case 1: n=1000; break;
+	  case 2: n=2000; break;
+	  case 3: n=4000; break;
+	  default: return 0;
+    }
+    cout << endl << "Jakie ma byc prawdopodobienstwo p?" << endl
+  	   << "0 - [3log2(n)]/n" << endl
+  	   << "1 - n^(-1/3)" << endl
+  	   << "2 - graf pelny" << endl
+  	   << "Twoj wybor: ";
+    cin >> opcja;
+    
+    switch(opcja) {
+	  case 0: 
+	  p=(3*(log((float)n))/(log(2)))/(float)n;
+	  cout << endl << "p="<< p << endl;
+	  x.generator_grafu(n,p);
+  	  x.sprawdz_spojnosc();
+	  break;
+	  
+	  case 1:
+	  p=pow((float)n, -1/3.f);
+	  cout << endl << "p="<< p << endl;
+	  x.generator_grafu(n,p);
+  	  x.sprawdz_spojnosc();
+	  break;
+	  
+	  case 2: 
+	  x.graf_pelny(n);
+	  break;
+	  
+	  default: 
+	  return 0;
+    }
+    }
+  }
+    
   cout << endl << "Poczatkowe drzewo:" << endl << endl;
   //x.wyswietl_liste();
   x.sortuj_wagi();
