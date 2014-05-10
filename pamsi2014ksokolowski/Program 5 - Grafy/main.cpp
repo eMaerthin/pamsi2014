@@ -23,9 +23,9 @@ double pobierz_sredni_czas(Drzewo<TYP> tab[], const char funkcja, const int l_el
 	while (ile--){
 		std::cout << ile << funkcja <<" ";
 		switch (funkcja){
-			case 'K': {  tab[ile].alg_Kruskala();
+			case 'K': {  tab[ile].alg_Kruskala('T');
 					break;	 }
-			case 'P' : { tab[ile].alg_Prima();
+			case 'P' : { tab[ile].alg_Prima_lista();
 					break; }
 			case 'B' : { tab[ile].alg_Boruvki();
 					break; }
@@ -43,7 +43,7 @@ void eksperyment()
 	ofstream plik("eksperyment.txt");
 
 	const int l_elementow = 100;
-	int liczba_wierz[] = { 100, 250, 500, 1000 };
+	int liczba_wierz[] = { 500, 1000, 2000, 4000 };
 	Drzewo<int> tablica[l_elementow];
 
 	plik << "Typ wygen Grafu\t Liczba ele\t Kruskala\t Prima\t Boruvki\n";
