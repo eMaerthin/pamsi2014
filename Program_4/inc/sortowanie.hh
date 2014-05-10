@@ -2,7 +2,22 @@
 #define SORTOWANIE_HH
 
 #include <random>
-
+#include <cmath>
+#define M_LN2 0.693147180559945309417
+template <typename TYP>
+void przesun_w_dol (TYP *tablica, int pierwszy, int ostatni);
+template <typename TYP>
+void sortuj (TYP *tablica, int rozmiar, int M);
+template <typename TYP>
+void scal_tablice(TYP *tablica, TYP *temp, int lewa, int srodek, int prawa);
+template <typename TYP>
+void sortowanie_wstawianie (TYP *tablica, int rozmiar);
+template <typename TYP>
+void sortowanie_kopcowanie (TYP *tablica, int rozmiar);
+template <typename TYP>
+int podzial (TYP *tablica, int pierwszy, int ostatni);
+template <typename TYP>
+inline void zamien (TYP *tablica, int i, int j);
 /************************* SORTOWANIE BABELKOWE *******************************/
 template <typename TYP>
 inline void sortowanie_babelkowe(TYP *tablica, int rozmiar)

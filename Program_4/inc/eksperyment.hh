@@ -9,7 +9,16 @@
 
 
 int uporzadkowanie_elementow(int rozmiar);
-
+template <typename TYP>
+bool eksperyment(TYP *tablica, TYP *rozklad, int rozmiar);
+template <typename TYP>
+int rozklad_liczb(TYP *tablica, TYP *rozklad, int rozmiar);
+template <typename TYP>
+void przypisz_rozklad(TYP *tablica, TYP *rozklad, int rozmiar);
+template <typename TYP>
+bool zapisz_do_pliku(TYP *tablica, int rozmiar);
+template <typename TYP>
+bool wczytaj_z_pliku(TYP *tablica, int rozmiar);
 
 /******************************** NOWY EKSPERYMENT ****************************/
 template <typename TYP>

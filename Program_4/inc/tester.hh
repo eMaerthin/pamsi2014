@@ -8,7 +8,11 @@
 /* definiowanie rozmiaru tablicy */
 bool rozmiar_tablicy(unsigned int &rozmiar);
 
+template <typename TYP>
+bool sprawdzenie_sortowania(TYP *tablica, int rozmiar);
 
+template <typename TYP>
+void przypisz_rozklad(TYP *tablica, TYP *rozklad, int rozmiar);
 /******************************* WYBOR SORTOWANIA *****************************/
 /* wybor jaka metoda dane beda sortowane */
 template <typename TYP>

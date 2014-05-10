@@ -2,7 +2,6 @@
 #include <cstdlib> /*rand*/
 #include <random> /* biblioteka dla generowania rozkladow */
 #include <chrono> /* biblioteka dla obliczania czasu */
-
 #include "sortowanie.hh"
 #include "tester.hh"
 #include "eksperyment.hh"
