@@ -64,8 +64,6 @@
       <StackReserveSize>
       </StackReserveSize>
       <AdditionalLibraryDirectories>C:\boost_1_55_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <StackCommitSize>
-      </StackCommitSize>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
