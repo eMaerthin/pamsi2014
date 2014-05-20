@@ -2,6 +2,7 @@
 #define FUNKCJE_HPP
 
 #include <iostream>
+#include <string>
 
 template <class TYP>
 int partition(TYP *tablica, int p, int r) // dzielimy tablice na dwie czesci, w pierwszej wszystkie liczby sa mniejsze badz rowne x, w drugiej wieksze lub rowne od x
@@ -40,5 +41,6 @@ void quicksort(TYP *tablica, int p, int r) // sortowanie szybkie
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 #endif
