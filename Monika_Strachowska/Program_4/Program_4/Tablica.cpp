@@ -112,7 +112,7 @@ void Tablica::wstepneSortowanie(void)
 	else if(uporzadkowanie == 1) procent = 0.1;
 	else if(uporzadkowanie == 2) procent = 0.5;
 	else if(uporzadkowanie == 3) procent = 0.9;
-	algorytmT(0,(int)(floor(rozmiar - (rozmiar * procent))-1));
+	algorytmT(0,(int)(floor((rozmiar * procent))));
 }
 
 
