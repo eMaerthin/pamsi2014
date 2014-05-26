@@ -97,6 +97,5 @@ int main()
     BF.wczytaj_z_pliku();
     BF.algorytm();
     BF.wyswietl();
-    cin>>p;
 }
 

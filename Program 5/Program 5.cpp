@@ -279,6 +279,5 @@ int main()
     G.algorytm_prima();
     cout<<"MDR znalezione za pomoca algorytmu Kruskala:\n";
     G.algorytm_kruskala();
-    cin>>i;
 }
 
