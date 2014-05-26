@@ -41,8 +41,10 @@ void dodaj_element(int a)
 
 
 
-void usun_korzen()
+int usun_korzen()
 {
+	int korzen;
+	korzen=tablica [1];
 tablica[1] = tablica[rozmiar];
 rozmiar--;
 int tmp = 1;
@@ -64,6 +66,7 @@ while(tmp*2 <= rozmiar)
 	else
 	break;
 }
+return korzen;
 }
 
 
