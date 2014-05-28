@@ -181,6 +181,7 @@ BOOST_AUTO_TEST_CASE(testBabelkowe)
 	wypLos(tab, 200);
 	Sortowania<int>::SORTUJ_BABELKOWO(tab, 200);
 	BOOST_CHECK(Sortowania<int>::czyPosortowane(tab, 200));
+	delete []tab;
 }
 BOOST_AUTO_TEST_CASE(testQuicksort)
 {
@@ -188,6 +189,7 @@ BOOST_AUTO_TEST_CASE(testQuicksort)
 	wypLos(tab, 200);
 	Sortowania<int>::SORTUJ_QUICKSORT(tab, 0, 199);
 	BOOST_CHECK(Sortowania<int>::czyPosortowane(tab, 200));
+	delete []tab;
 }
 BOOST_AUTO_TEST_CASE(testScalanie)
 {
@@ -198,6 +200,8 @@ BOOST_AUTO_TEST_CASE(testScalanie)
 	wypLos(tab, 200);
 	Sortowania<int>::SORTUJ_SCALANIE(tab, result, 0, 200);
 	BOOST_CHECK(Sortowania<int>::czyPosortowane(tab, 200));
+	delete []tab;
+	delete []result;
 }
 BOOST_AUTO_TEST_SUITE_END()
 /*

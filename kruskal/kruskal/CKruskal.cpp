@@ -1,3 +1,7 @@
+//#define BOOST_TEST_DYN_LINK
+//#define BOOST_TEST_MODULE Hello
+//#include <boost/test/unit_test.hpp>
+
 #include <iostream>
 #include <fstream>
 #include <list>
@@ -10,14 +14,23 @@
 #include <vector>
 #include <set>
 #include "Node.cpp"
+//#include <boost\timer.hpp>
 
 using namespace std;
 
 
 class CKruskal
 {
+	double srednia(double * czasy, int powtorzenia)
+	{
+		double sum = 0;
+		for (int i = 0; i < powtorzenia; i++)
+			sum += czasy[i];
+		return sum / (double)powtorzenia;
+	}
+
 	list<Node> nodes;
-	int** nodesM;
+	long int** nodesM;
 	int maxNode = 0;
 
 	struct compareRandom {
@@ -41,6 +54,30 @@ class CKruskal
 		return true;
 	}
 public:
+	CKruskal(CKruskal * k)
+	{
+		for (int i = 0; i <= maxNode; i++)
+			delete [] nodesM;
+		maxNode = k->maxNode;
+		nodesM = new long int*[maxNode + 1];
+		for (int i = 0; i <= maxNode; i++)
+			nodesM[i] = new long int[maxNode + 1];
+		for (int i = 0; i <= maxNode; i++)
+		for (int j = 0; j <= maxNode; j++)
+			nodesM[i][j] = 0;
+		for (int i = 0; i < maxNode;i++)
+		for (int j = 0; j < maxNode; j++)
+		{
+			nodesM[i][j] = k->getMatrix()[i][j];
+		}
+		nodes = k->nodes;
+	}
+
+	CKruskal()
+	{
+		maxNode = 0;
+	}
+
 	list<Node> minTree()
 	{
 		list<Node> tree;
@@ -56,6 +93,7 @@ public:
 			n[it->end] = true;
 			tree.push_back(*(it++));
 		}
+		delete[] n;
 		return tree;
 	}
 
@@ -63,6 +101,7 @@ public:
 	{
 		list<Node>::iterator it;
 		it = nodes.begin();
+		
 		while (it != nodes.end())
 		{
 			if (it->start == p || it->end == p)
@@ -134,9 +173,9 @@ public:
 				maxNode = node2;
 		}
 		myfile.close();
-		nodesM = new int*[maxNode + 1];
+		nodesM = new long int*[maxNode + 1];
 		for (int i = 0; i <= maxNode; i++)
-			nodesM[i] = new int[maxNode + 1];
+			nodesM[i] = new long int[maxNode + 1];
 		for (int i = 0; i <= maxNode; i++)
 		for (int j = 0; j <= maxNode; j++)
 			nodesM[i][j] = 0;
@@ -209,7 +248,6 @@ public:
 			szukany = stos.top();
 			stos.pop();//Usuwamy odwiedzany element
 
-			printf("\nOdwiedzam: %d\n", szukany);
 
 			V[szukany] = true;//ODwiedziliœmy ju¿ ten
 
@@ -226,7 +264,7 @@ public:
 		return allNodes(V);
 	}
 
-	list<Node> convert(int ** matrix)
+	list<Node> convert(long int ** matrix)
 	{
 		list<Node> result;
 		for (int i = 0; i <= maxNode;i++)
@@ -247,6 +285,10 @@ public:
 		int ** result;
 		list<Node>::iterator it;
 		maxNode = 0;
+		for (int i = 0; i <= maxNode; i++)
+		{
+			delete[] nodesM;
+		}
 		for (it = lista.begin(); it != lista.end(); it++)
 		{
 			if (maxNode < it->start)
@@ -254,10 +296,10 @@ public:
 			if (maxNode < it->end)
 				maxNode = it->end;
 		}
-		nodesM = new int*[maxNode + 1];
+		nodesM = new long int*[maxNode + 1];
 		for (int i = 0; i <= maxNode; i++)
 		{
-			nodesM[i] = new int[maxNode + 1];
+			nodesM[i] = new long int[maxNode + 1];
 		}
 		for (int i = 0; i <= maxNode;i++)
 		for (int j = 0; j <= maxNode; j++)
@@ -272,39 +314,86 @@ public:
 		return result;
 	}
 
-	int ** getMatrix()
+	long int ** getMatrix()
 	{
 		return nodesM;
 	}
 
-	void randomGraph(int n, double p)
-	{
-		srand(time(NULL));
-		maxNode = n - 1;
-		nodesM = new int*[n];
-		for (int i = 0; i < n; i++)
-		{
-			nodesM[i] = new int[n];
-		}
-		for (int i = 0; i < n; i++)
-		for (int j = 0; j < n; j++)
-		{
-			nodesM[i][j] = 0;
-		}
-		for (int i = 0; i < n; i++)
-		for (int j = i + 1; j < n; j++)
-		{
-			int k = rand() / (double)SHRT_MAX;
-			if (k < p)
+	long int** randomGraph(int n, double p)
+	{	
+			if (nodesM != NULL)
 			{
-				int l = rand() % 99 + 1;
-				nodesM[i][j] = l;
-				nodesM[j][i] = l;
+				for (int i = 0; i < n; i++)
+					delete[] nodesM[i];
 			}
+			srand((unsigned int)time(NULL));
+			maxNode = n - 1;
+			nodesM = new long int*[n];
+			for (int i = 0; i < n; i++)
+			{
+				nodesM[i] = new long int[n];
+			}
+			for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+			{
+				nodesM[i][j] = 0;
+			}
+			while (!DFS(0))
+			{
+			for (int i = 0; i < n; i++)
+			for (int j = i + 1; j < n; j++)
+			{
+				double k = rand() / (double)SHRT_MAX;
+				if (k < p)
+				{
+					int l = rand() % 99 + 1;
+					nodesM[i][j] = l;
+					nodesM[j][i] = l;
+				}
+			}
+			nodes = convert(nodesM);
 		}
+		return nodesM;
 	}
-
-	
+	double liczKruskal(int powtorzenia, int n, double p)
+	{
+		clock_t start, koniec;
+		double* times = new double[powtorzenia];
+		CKruskal* k = new CKruskal();
+		k->randomGraph(n, p);
+		for (int i = 0; i < powtorzenia; i++)
+		{
+			cout << i + 1 << " ";
+			CKruskal* k2 = new CKruskal(k);
+			start = clock();
+			k2->minTree();
+			koniec = clock();
+			times[i] = (long)(koniec - start);
+			delete k2;
+		}
+		double result = srednia(times, powtorzenia);
+		//cout << srednia(times, powtorzenia) << endl;
+		return result;
+	}
+	double liczPrime(int powtorzenia, int n, double p)
+	{
+		clock_t start, koniec;
+		double* times = new double[powtorzenia];
+		CKruskal* k = new CKruskal();
+		k->randomGraph(n, p);
+		for (int i = 0; i < powtorzenia; i++)
+		{
+			cout << i + 1 << " ";
+			CKruskal* k2 = new CKruskal(k);
+			start = clock();
+			k2->minTree(0);
+			koniec = clock();
+			times[i] = (long)(koniec - start);
+			delete k2;
+		}
+		double result = srednia(times, powtorzenia);
+		return result;
+	}
 
 	
 };

@@ -1,5 +1,7 @@
 #include <iostream>
 #include <queue>
+#include <string>
+#include <cstdlib>
 
 using namespace std;
 
@@ -9,8 +11,10 @@ class Kolejka : public queue<int>
 		void wypelnij()
 		{
 			cout << "Ile chcesz dodac elementow?: ";
-			int ile;
-			cin >> ile;
+			string licz;
+			cin >> licz;
+			int ile = atoi(licz.c_str());
+			
 			for(int i = 0; i < ile; i++)
 			{
 				cout<<i<<": ";

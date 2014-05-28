@@ -1,24 +1,18 @@
-﻿Build started 06.05.2014 17:03:37.
-     1>Project "C:\Users\Mikus\Documents\Visual Studio 2013\Projects\kruskal\kruskal\kruskal.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 2014-05-27 18:32:21.
+     1>Project "C:\Users\Piotrek\Desktop\kruskal\Nowy folder\kruskal\kruskal\kruskal.vcxproj" on node 2 (Rebuild target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Kruskal.cpp main.cpp CKruskal.cpp Node.cpp
+         D:\Pliki programów (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp CKruskal.cpp Node.cpp
          Node.cpp
          CKruskal.cpp
-     1>c:\users\mikus\documents\visual studio 2013\projects\kruskal\kruskal\ckruskal.cpp(282): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\mikus\documents\visual studio 2013\projects\kruskal\kruskal\ckruskal.cpp(297): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
          main.cpp
-     1>c:\users\mikus\documents\visual studio 2013\projects\kruskal\kruskal\ckruskal.cpp(282): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\mikus\documents\visual studio 2013\projects\kruskal\kruskal\ckruskal.cpp(297): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
-         Kruskal.cpp
          Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Mikus\Documents\Visual Studio 2013\Projects\kruskal\Debug\kruskal.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Mikus\Documents\Visual Studio 2013\Projects\kruskal\Debug\kruskal.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Mikus\Documents\Visual Studio 2013\Projects\kruskal\Debug\kruskal.lib" /MACHINE:X86 Debug\Kruskal.obj
-         Debug\main.obj
+         D:\Pliki programów (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Piotrek\Desktop\kruskal\Nowy folder\kruskal\Debug\kruskal.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Piotrek\Desktop\kruskal\Nowy folder\kruskal\Debug\kruskal.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Piotrek\Desktop\kruskal\Nowy folder\kruskal\Debug\kruskal.lib" /MACHINE:X86 Debug\main.obj
          Debug\CKruskal.obj
          Debug\Node.obj
-         kruskal.vcxproj -> C:\Users\Mikus\Documents\Visual Studio 2013\Projects\kruskal\Debug\kruskal.exe
-     1>Done Building Project "C:\Users\Mikus\Documents\Visual Studio 2013\Projects\kruskal\kruskal\kruskal.vcxproj" (Rebuild target(s)).
+         kruskal.vcxproj -> C:\Users\Piotrek\Desktop\kruskal\Nowy folder\kruskal\Debug\kruskal.exe
+     1>Done Building Project "C:\Users\Piotrek\Desktop\kruskal\Nowy folder\kruskal\kruskal\kruskal.vcxproj" (Rebuild target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.87
+Time Elapsed 00:00:06.22

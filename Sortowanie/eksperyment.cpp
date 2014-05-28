@@ -28,16 +28,16 @@ private:
 	{
 		int i, j, q;
 		for (i = pocz; i <= kon; i++)
-			t[i] = tab[i];  // Skopiowanie danych do tablicy pomocniczej
+			t[i] = tab[i];								// Skopiowanie danych do tablicy pomocniczej
 		i = pocz; j = sr + 1; q = pocz;                 // Ustawienie wskaŸników tablic
 		while (i <= sr && j <= kon)
-		{         								// Przenoszenie danych z sortowaniem ze zbiorów pomocniczych do tablicy g³ównej
+		{         										// Przenoszenie danych z sortowaniem ze zbiorów pomocniczych do tablicy g³ównej
 			if (t[i] < t[j])
 				tab[q++] = t[i++];
 			else
 				tab[q++] = t[j++];
 		}
-		while (i <= sr) tab[q++] = t[i++]; 			// Przeniesienie nie skopiowanych danych ze zbioru pierwszego w przypadku, gdy drugi zbiór siê skoñczy³
+		while (i <= sr) tab[q++] = t[i++]; 				// Przeniesienie nie skopiowanych danych ze zbioru pierwszego w przypadku, gdy drugi zbiór siê skoñczy³
 	}
 
 public:
@@ -97,9 +97,9 @@ public:
 		if (pocz < kon)
 		{
 			sr = (pocz + kon) / 2;
-			SORTUJ_SCALANIE(tab, pom, pocz, sr);    // Dzielenie lewej czêœci
+			SORTUJ_SCALANIE(tab, pom, pocz, sr);      // Dzielenie lewej czêœci
 			SORTUJ_SCALANIE(tab, pom, sr + 1, kon);   // Dzielenie prawej czêœci
-			merge(tab, pom, pocz, sr, kon);   // £¹czenie czêœci lewej i prawej
+			merge(tab, pom, pocz, sr, kon);   		  // £¹czenie czêœci lewej i prawej
 		}
 	}
 
