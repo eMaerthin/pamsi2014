@@ -8,7 +8,6 @@
 
 #include "kruskal.h"
 
-
 int Kruskal(Graf & test, int & _ilosc_drzew, std::vector<_drzewo_lista> & drzewo)
 {
     int nalezy1(-1),nalezy2(-1);

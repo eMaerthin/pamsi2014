@@ -137,6 +137,16 @@ void AlgorytmP(std::vector<_drzewo_lista> & _drzewo, std::vector<Graf>& tab, int
     // zakomentowany blad, nie wiem czemu nie dziala. Program dziala sprawnie ale dluzej ze wzgledu na przegladanie calej listy.
     //_elementy.reverse();
     //_elementy.pop_front();
+    //for(std::list<Graf>::iterator it=_elementy.begin(); it!= _elementy.end(); it++)
+    //{
+    //   std::cout << "\ngraf before it=" << *it;
+    //}
+    _elementy.pop_front();
+    //for(std::list<Graf>::iterator it=_elementy.begin(); it!= _elementy.end(); it++)
+    //{
+    //    std::cout << "\ngraf after it=" << *it;
+    //}
+
     //std::list<Graf>::iterator it = _elementy.begin();
     //Graf dupa = *it;
     //it = _elementy.erase(it); /// NIE MOZE USUNAC PIERWSZEGO ELEMENTU ?? ///////////////////////////////

@@ -27,10 +27,17 @@ public:
         in >> G.pierwszy >> G.drugi >> G.waga;
         return in;
     }
+    friend std::ostream& operator<<(std::ostream& in, Graf& G) // input
+    {
+        in << G.pierwszy << G.drugi << G.waga;
+        return in;
+    }
 };
-
+void quicksort( std::vector<Graf>& tab, long lewy, long prawy );
 void DodawanieKrawedzi(std::vector<Graf> & elementy, int &roz);
 void swapx( Graf& a, Graf& b );
 void Sortuj(std::vector<Graf> & elementy, int roz);
 void wczytywaniezpliku(const char * nazwa, std::vector<Graf> & G, int & roz, std::fstream & plik);
+int generujER(int n, float p, std::vector<Graf> & elementy, int & roz);
+
 #endif /* defined(__PAMSI_testy__Graf__) */
