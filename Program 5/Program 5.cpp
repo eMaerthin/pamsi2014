@@ -6,7 +6,7 @@
 using namespace std;
 ifstream plik;
 ofstream plik2;
-const int rozmiar=10; //Rozmiar grafu - ilosc wierzcholkow
+const int rozmiar=100; //Rozmiar grafu - ilosc wierzcholkow
 const int inf=10000000;
 //Struktura polaczenie konieczna do zdefiniowania postaci listowej grafu.
 struct polaczenie
@@ -41,7 +41,7 @@ struct graf
         void wczytaj_z_pliku()
        {
             cout<<"Wczytywanie danych z pliku tekstowego\n";
-            plik.open("nazwa2.txt");   // nazwa pliku zawierajacego dane wejsciowe
+            plik.open("nazwa.txt");   // nazwa pliku zawierajacego dane wejsciowe
             if(plik.good())
             {
                            cout<<"Plik zostal otwarty pomyslnie\n";
@@ -189,15 +189,17 @@ void algorytm_prima()
        		wielkosc_tablicy_lukow--;	//a nastepnie rozmiar tablicy zostaje zmniejszony, w wyniku czego ostatni element "znika"
        		sortuj_tablice_lukow(tablica_lukow,wielkosc_tablicy_lukow); //sortowanie tablicy koniecznie ze wzgledu na trafienie na 1 miejsce tablicy luku o najwiekszej wadze(ostatniego)
     }while(!czy_drzewo_zawiera_wszystkie_wierzcholki(czy_nalezy_do_drzewa));
-       	
+    int waga=0;
        	
        /*Wyswietlanie MDR w czytelnej formie*/	
     do 
     {
        	cout<<MDR.front().poczatek<<" "<<MDR.front().koniec<<" "<<MDR.front().waga<<"\n";
+       	waga+=MDR.front().waga;
        	MDR.pop_front();
     }
     while(!MDR.empty());
+    cout<<"Waga: "<<waga<<"\n";
 }
        
        
@@ -234,7 +236,9 @@ void algorytm_prima()
     	for(int i=0; i<wielkosc_tablicy_lukow; i++)
     		tablica_lukow2[i]=tablica_lukow[2*i];	
     	wielkosc_tablicy_lukow/=2;
-    		
+    	
+    	czy_nalezy_do_drzewa[tablica_lukow2[0].poczatek]=true;
+    	
     	/*Glowna petla algorytmu dzialajaca tak dlugo, az w MDR nie znajda sie wszystkie istniejace wierzcholki*/	
     	do
     	{
@@ -243,20 +247,29 @@ void algorytm_prima()
     			//jesli koniec lub poczatek rozpatrywanego luku nie znajduje sie jeszcze w MDR, to luk trafia do MDR
     			if(czy_nalezy_do_drzewa[tablica_lukow2[i].koniec]==false||czy_nalezy_do_drzewa[tablica_lukow2[i].poczatek]==false) 
     			{
-    			MDR.push_front(tablica_lukow2[i]);
-    			czy_nalezy_do_drzewa[tablica_lukow2[i].koniec]=true;
-    			czy_nalezy_do_drzewa[tablica_lukow2[i].poczatek]=true;
-    
+    				if(czy_nalezy_do_drzewa[tablica_lukow2[i].koniec]==false&&czy_nalezy_do_drzewa[tablica_lukow2[i].poczatek]==false)
+    				{
+    				MDR.push_front(tablica_lukow2[i]);
+    				czy_nalezy_do_drzewa[tablica_lukow2[i].koniec]=true;
+    				}
+    				else
+    				{
+    				MDR.push_front(tablica_lukow2[i]);
+    				czy_nalezy_do_drzewa[tablica_lukow2[i].koniec]=true;
+    				czy_nalezy_do_drzewa[tablica_lukow2[i].poczatek]=true;
+    				}
     			}
 			} 
     	}while(!czy_drzewo_zawiera_wszystkie_wierzcholki(czy_nalezy_do_drzewa));
-    	
+    	int waga=0;
     	    do
    		 	{
    	    		cout<<MDR.front().poczatek<<" "<<MDR.front().koniec<<" "<<MDR.front().waga<<"\n";
+   	    		waga+=MDR.front().waga;
        			MDR.pop_front();
     		}
     	while(!MDR.empty());
+    	cout<<"Waga: "<<waga<<"\n";
        }
        
 };
@@ -279,5 +292,6 @@ int main()
     G.algorytm_prima();
     cout<<"MDR znalezione za pomoca algorytmu Kruskala:\n";
     G.algorytm_kruskala();
+    cin>>i;
 }
 
