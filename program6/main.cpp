@@ -12,6 +12,7 @@
 #include <vector>
 #include <list>
 #include "AlgorytmD.h"
+#include "AlgorytmBF.h"
 //std::vector<std::list<int>> droga;
 // ilosc wierzcholkow
 int prawdo(4); int ilosc(500); int algorytm(0);bool koniec = false;
@@ -48,13 +49,29 @@ int main(int argc, const char * argv[])
     int N,roz,menu; //liczba wierzcholkow, rozmiar
     double p;
     std::vector<Graf> G; std::vector<int> W;
-    //N = DodawanieKrawedzi(G, roz);
-    generacja(N, p, menu);
-    generujER(N, p, G,roz);
-    W.resize(N);
-    droga.resize(N);
-    AlgorytmD(G,W,N,droga);
-    WyswietlanieW(W,droga);
+    std::cout<< "Wybierz Algorytm \n 1. Djikstry\n 2. Belmana - Forda\n";
+    int opcja;
+    std::cin>>opcja;
+    switch(opcja){
+        case 1: {
+            generacja(N, p, menu);
+            generujER(N, p, G,roz);
+            W.resize(N);
+            droga.resize(N);
+            AlgorytmD(G,W,N,droga);
+            break;
+        }
+        case 2:{
+            generacja(N, p, menu);
+            generujER_S(N, p, G,roz);
+            W.resize(N);
+            droga.resize(N);
+            AlgorytmBF(G,W,N,droga);
+            break;
+        }
+        default: {std::cout<<"Zla opcja\n"; break;}
+    }
+       WyswietlanieW(W,droga);
     std::cout << "Hello, World!\n";
     return 0;
 }

@@ -14,9 +14,9 @@ double rjedn()
     std::uniform_real_distribution<double> uni(0,1);
     return uni(e2);
 }
-int generujER(int n, float p, std::vector<Graf> & elementy, int & roz)
+int generujER_S(int n, float p, std::vector<Graf> & elementy, int & roz)
 {
-    Graf z;
+    Graf z,y;
     int v = 1; 
     int w = -1;
     float lp = log(1.0 - p);
@@ -33,8 +33,46 @@ int generujER(int n, float p, std::vector<Graf> & elementy, int & roz)
         {
             if(v != w){
                 z.pierwszy=v;
+                y.drugi=v;
+                y.pierwszy=w;
                 z.drugi=w;
-                    z.waga = rand()%10;
+                z.waga = rand()%1010-10;
+                roz++;
+                y.waga=rand()%1010-10;
+                elementy.resize(roz);
+                elementy.push_back(z);
+                roz++;
+                elementy.resize(roz);
+                elementy.push_back(y);
+            }
+            
+        }
+    }
+    elementy[0]=elementy[roz];
+    elementy.pop_back();
+    return 1;
+}
+int generujER(int n, float p, std::vector<Graf> & elementy, int & roz)
+{
+    Graf z;
+    int v = 1;
+    int w = -1;
+    float lp = log(1.0 - p);
+    float lr;
+    elementy.clear();
+    while (v < n){
+        lr = log(1.0 - rjedn());
+        w = w + 1 + int(lr/lp);
+        while (w >= v && v < n){
+            w = w - v;
+            v = v + 1;
+        }
+        if (v < n)
+        {
+            if(v != w){
+                z.pierwszy=v;
+                z.drugi=w;
+                z.waga = rand()%500;
                 roz++;
                 elementy.resize(roz);
                 elementy.push_back(z);

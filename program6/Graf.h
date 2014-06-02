@@ -26,6 +26,7 @@ public:
         return waga < test.waga;
     }
 };
+int generujER_S(int n, float p, std::vector<Graf> & elementy, int & roz);
 int generujER(int n, float p, std::vector<Graf> & elementy, int & roz);
 int DodawanieKrawedzi(std::vector<Graf> & elementy, int &roz);
 void swapx( Graf& a, Graf& b );
