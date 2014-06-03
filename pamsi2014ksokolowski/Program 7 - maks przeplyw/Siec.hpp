@@ -45,7 +45,7 @@ void Siec<TYP>::alg_Edmondsa_Karpa()
 {
 	std::vector<int> sciezka; //sciezka - do zapamietania sciezki w sieci res
 	Graf<TYP> przeplyw_akt; //Przeplyw aktualny w sieci
-	Graf<TYP> przeplyw_max = przeplyw //Przeplyw maksymalny w sieci
+	Graf<TYP> przeplyw_max = przeplyw; //Przeplyw maksymalny w sieci
 	std::size_t i, j; //zmienne uzywane w petlach
 	
 	//Sprawdzenie czy poprawnie zostaly podane wierzcholki: 'zrodlo' i 'ujscie'
