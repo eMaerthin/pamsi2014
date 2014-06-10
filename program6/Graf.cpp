@@ -7,6 +7,9 @@
 //
 
 #include "Graf.h"
+#include <ctime>
+#include <stdio.h>      /* printf, NULL */
+#include <stdlib.h>
 double rjedn()
 {
     std::random_device rd;
@@ -19,6 +22,7 @@ int generujER_S(int n, float p, std::vector<Graf> & elementy, int & roz)
     Graf z,y;
     int v = 1; 
     int w = -1;
+    srand (time(NULL));
     float lp = log(1.0 - p);
     float lr;
     elementy.clear();
@@ -36,9 +40,9 @@ int generujER_S(int n, float p, std::vector<Graf> & elementy, int & roz)
                 y.drugi=v;
                 y.pierwszy=w;
                 z.drugi=w;
-                z.waga = rand()%1010-10;
+                z.waga = rand()%1010-2;
                 roz++;
-                y.waga=rand()%1010-10;
+                y.waga=rand()%1010;
                 elementy.resize(roz);
                 elementy.push_back(z);
                 roz++;
