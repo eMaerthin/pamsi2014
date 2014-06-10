@@ -23,32 +23,45 @@ string nazwaPliku;
 
 int main()
 {
+	fmax = 0;
 	nazwaPliku = "2k100-35.txt";
 	eksperyment();
+	fmax = 0;
 	nazwaPliku = "2k200-89.txt";
 	eksperyment();
+	fmax = 0;
 	nazwaPliku = "2k300-53.txt";
 	eksperyment();
+	fmax = 0;
 	nazwaPliku = "2k400-37.txt";
 	eksperyment();
+	fmax = 0;
 	nazwaPliku = "2k500-92.txt";
 	eksperyment();
 
+	fmax = 0;
 	nazwaPliku = "4k100-23.txt";
 	eksperyment();
+	fmax = 0;
 	nazwaPliku = "4k200-93.txt";
 	eksperyment();
+	fmax = 0;
 	nazwaPliku = "4k300-72.txt";
 	eksperyment();
+	fmax = 0;
 	nazwaPliku = "4k400-64.txt";
 	eksperyment();
+	fmax = 0;
 	nazwaPliku = "4k500-16.txt";
 	eksperyment();
 
+	fmax = 0;
 	nazwaPliku = "16k100-67.txt";
 	eksperyment();
+	fmax = 0;
 	nazwaPliku = "16k200-48.txt";
 	eksperyment();
+	fmax = 0;
 	nazwaPliku = "16k300-19.txt";
 	eksperyment();
 
@@ -151,12 +164,13 @@ void eksperyment() {
 		for(int i = 0; i < 10; i++) {
 			cout << ".";
 			__int64 poczatek = 0, koniec = 0;
-
+			
 			QueryPerformanceCounter((LARGE_INTEGER*) &poczatek);
 			edmondsKarp();
 			QueryPerformanceCounter((LARGE_INTEGER*) &koniec);
 
 			czas.push_back((long double)((koniec - poczatek)*1000/czestotliosc));
+			
 		}
 		cout << endl;
 		plik << endl;
