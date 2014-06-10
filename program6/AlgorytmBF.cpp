@@ -8,9 +8,7 @@
 
 #include "AlgorytmBF.h"
 
-void AlgorytmBF(std::vector<Graf>& G, std::vector<int>&W, int & N, std::vector<std::list<int>> & droga){
-    int i;
-    bool z = false;
+bool AlgorytmBF(std::vector<Graf>& G, std::vector<int>&W, int & N, std::vector<std::list<int>> & droga){
     for(std::vector<int>::iterator it = W.begin()+1; it!=W.end(); it++) // przypisanie wierzcholka wartosci INF
     {
         *it=2000000;                // inf
@@ -31,5 +29,6 @@ void AlgorytmBF(std::vector<Graf>& G, std::vector<int>&W, int & N, std::vector<s
     }
     
     for(int i=0; i<G.size(); i++){ // sprawdzenie wystepowania cyklu
-        if(W[G[i].pierwszy] > W[G[i].drugi] + G[i].waga) std::cout << "wystapil cykl \n";
-    }}
+        if(W[G[i].pierwszy] > W[G[i].drugi] + G[i].waga) {std::cout << "wystapil cykl \n"; return false;}
+    }return true;
+}

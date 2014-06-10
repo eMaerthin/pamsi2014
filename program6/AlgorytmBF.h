@@ -15,5 +15,5 @@
 #include "Graf.h"
 #include <iostream>
 
-void AlgorytmBF(std::vector<Graf>& G, std::vector<int>&W, int & N, std::vector<std::list<int>> & droga);
+bool AlgorytmBF(std::vector<Graf>& G, std::vector<int>&W, int & N, std::vector<std::list<int>> & droga);
 #endif /* defined(__PAMSI2014_6__AlgorytmBF__) */
