@@ -99,6 +99,7 @@ else
         system( "cls" );
     break;
 case 3:
+    cout<<endl;
     if (kolejka.size()!= 0){
     cout << "W kolejce ";
 if(kolejka.size()== 1)                             cout <<"znajduje sie "<<kolejka.size()<<" liczba."<<endl;

@@ -52,24 +52,19 @@ switch(opcja){
 
 case 1:
     cout<< "Wpisujac liczby pamietaj ze jest to STOS czyli struktura danych typu LIFO (Last in First Out ) "<<endl;
-    cout << "Podaj liczbe (99 konczy wpisywanie) : "<<endl;
+    cout << "Podaj liczbe (Dowolny Znak konczy wpisywanie) : "<<endl;
 	do{
     cout<< " #";
 	cin >> liczba;
-
-      if(cin.fail())
-     do {
-
-         cout << "Niedozwolony Znak! Wprowadz Ponownie: ";
+	if(cin.fail())
+      {
          cin.clear();
         cin.sync();
-        cin >> liczba;
+        break;
+      }
+    stosLiczb.push( liczba );
+	}while(!cin.fail());
 
-      }while(cin.fail());
-
-        stosLiczb.push( liczba );
-	}while(liczba != 99);
-	stosLiczb.pop();
 	system( "cls" );
 break;
 case 2:

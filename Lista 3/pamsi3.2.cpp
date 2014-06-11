@@ -83,7 +83,7 @@ cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
         system( "cls" );
 break;
 case 2:
-x = (R + 1 ) / 2; k = 2;
+x = 2*(R + 1 ) / 2; k = 2;
 for (int i = 0; i < R; i++)
 {
 for (int j = 1; j < x ; j++) cout << " ";
@@ -106,7 +106,7 @@ cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
                                 case 3:
 pop_heap(v.begin(), v.end());
 R--;
-x = R  / 2; k = 2;
+x = 2*R  / 2; k = 2;
 for (int i = 0; i < R; i++)
 {
 for (int j = 1; j < x ; j++) cout << " ";
@@ -121,6 +121,7 @@ cout << " " << endl;
 }
 }
 cout << endl;
+if (R )
 cout<<endl;
 cout << "Wcisnij dowolny klawisz aby powrocic do MENU";
          getch();
