@@ -15,7 +15,7 @@ public:
 	siecres(const siecres<typ> & S);
 	siecres<typ> & operator=(const siec<typ> & S);
 	void update1(unsigned int i, unsigned int j, typ przeplyw);
-	void dixtosciezka(map<unsigned int, elem<typ>> dix, typ & przeplyw);
+	void dixtosciezka(vector<unsigned int> dix, typ & przeplyw);
 	void update(vector<unsigned int> sciezka, typ przeplyw);
 	bool znajdzSciezke(typ & przeplyw);
 	typ siecres<typ>::maxPrzeplyw();
@@ -137,32 +137,31 @@ void siecres<typ>::update1(unsigned int i, unsigned int j, typ przeplyw){
 }
 
 template<class typ>
-void siecres<typ>::dixtosciezka(map<unsigned int, elem<typ>> dix, typ & przeplyw){
-	map<unsigned int, elem<typ>>::iterator it;
+void siecres<typ>::dixtosciezka(vector<unsigned int> dix, typ & przeplyw){
 	unsigned int poprzednik=_u;
 //	vector<unsigned int> rec;
-
-	while(dix[poprzednik].w1()!=numeric_limits<unsigned int>::max()){						//do czasu napotkania fail wierzcholka wyt³umaczone w znajdzSciezke()
+	while(dix[poprzednik]!=numeric_limits<unsigned int>::max()){						//do czasu napotkania fail wierzcholka wyt³umaczone w znajdzSciezke()
 //		rec.push_back(poprzednik);												//rec zbiera wierzcholki w porzadku terminal->Ÿrodlo
-		update1(dix[poprzednik].w1(), poprzednik, przeplyw);
-		poprzednik=dix[poprzednik].w1();										//nowy poprzednik
+		update1(dix[poprzednik], poprzednik, przeplyw);
+		poprzednik=dix[poprzednik];										//nowy poprzednik
 	}
 }
 
 template<class typ>
 bool siecres<typ>::znajdzSciezke(typ & przeplyw){
-	map<unsigned int, elem<typ>> dix;
-	map<unsigned int, elem<typ>>::iterator it;
-	vector<unsigned int> vt;
+	vector<typ> max;
+	vector<unsigned int> vt, poprzednik;
 	elem<typ> El;
 	typ zamiana;
 
-	dix.clear();
+	max.clear();
+	poprzednik.clear();
 	for(unsigned int i=0; i<_v; i++){
-		dix[i]=El.get(numeric_limits<unsigned int>::max(), 0);								//uzupelnienie mapy na starcie gdzie get(nie ma wczesniejszego, wszystko bedzie wieksze od tego)
+		max.push_back(0);	//uzupelnienie mapy na starcie gdzie get(nie ma wczesniejszego, wszystko bedzie wieksze od tego)
+		poprzednik.push_back(numeric_limits<unsigned int>::max());
 	}
 
-	dix[_s]=El.get(/*_s*/ numeric_limits<unsigned int>::max(), numeric_limits<typ>::max());  //przypisanie na mape wierzcholka startowego. gdzie w get(nie ma wczesniejszego, wszystko bedzie mniejsze od tego)
+	max[_s]=numeric_limits<typ>::max();  //przypisanie na mape wierzcholka startowego. gdzie w get(nie ma wczesniejszego, wszystko bedzie mniejsze od tego)
 	vt.clear();
 	vt.push_back(_s);
 
@@ -172,16 +171,18 @@ bool siecres<typ>::znajdzSciezke(typ & przeplyw){
 	*/
 	for(unsigned int i=0; i<vt.size(); i++){
 		if(vt[i]==_u){							//je¿eli napotkany zostanie terminal konczymy szukanie
-			przeplyw=dix[_u].max();				//maksymalny przeplyw jest max() elementu pod indeksem terminala na mapie
-			dixtosciezka(dix, przeplyw);					//scie¿ka jest wyznaczana w drug¹ strone czyli od terminala az do zrodla
+			przeplyw=max[_u];				//maksymalny przeplyw jest max() elementu pod indeksem terminala na mapie
+			dixtosciezka(poprzednik, przeplyw);					//scie¿ka jest wyznaczana w drug¹ strone czyli od terminala az do zrodla
 			return true;
 		}
 		for(unsigned int j=0; j<_v; j++){
 			if(_tab[vt[i]][j]>0){									//warunek zakazuje brania pod uwage polaczenia o wadze 0 oraz calkowitego brku polaczenia czyli -1
-				zamiana=min(_tab[vt[i]][j], dix[vt[i]].max());		//zamiana pobiera najmniejszy z pary wag: min(waga nowego polaczenia, waga maksymalnego przeplywu uzyskanego do tej pory)
-				if(zamiana>dix[j].max()){							//dziêki temu warunkowi na mape dodawane si¹ tylko wiêksze przeplywy jak równiez apobiega cyklom na wektorze odnalezionych wierzcholkow vt
-					dix[j]=El.get(vt[i], zamiana);					//jezeli powyzszy warunek jest spelniony pod indeksem wierzcholka zapisujemy nowy element
+				zamiana=min(_tab[vt[i]][j], max[vt[i]]);		//zamiana pobiera najmniejszy z pary wag: min(waga nowego polaczenia, waga maksymalnego przeplywu uzyskanego do tej pory)
+				if(zamiana>max[j]){							//dziêki temu warunkowi na mape dodawane si¹ tylko wiêksze przeplywy jak równiez apobiega cyklom na wektorze odnalezionych wierzcholkow vt
+					max[j]=zamiana;					//jezeli powyzszy warunek jest spelniony pod indeksem wierzcholka zapisujemy nowy element
+					poprzednik[j]=vt[i];
 					vt.push_back(j);								//dodajemy nowy odnaleziony wierzcholek
+
 				}
 			}
 		}
