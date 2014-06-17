@@ -6,61 +6,58 @@
 #include <string>
 Interface::Interface()
 {
+	_game.resetTable();
 }
 
-int minimax(int board[64], int player) {
-	//How is the position like for player (their turn) on board?
-	int winner = 0;
-	if (winner != 0) return winner*player;
+int Interface::minimax(int fields[], int player) {
 
-	int move = -1;
-	int score = -2;//Losing moves are preferred to no move
-	int i;
-	for (i = 0; i < 64; ++i) {//For all moves,
-		if (board[i] == 0) {//If legal,
-			board[i] = player;//Try the move
-			int thisScore = -minimax(board, player*-1);
-			if (thisScore > score) {
-				score = thisScore;
-				move = i;
-			}//Pick the one that's worst for the opponent
-			board[i] = 0;//Reset board after try
-		}
+	int max, min;
+
+	if (_game.getResult()  == 1)
+		return (player == 1) ? 1 : -1;
+
+	if (_game.getResult() == 3)
+		return 0;
+
+	(player == 1) ? 2 : 1;
+	max = (player == 2) ? 65 : -65;
+
+	for (int i = 0; i < 64; i++)
+	if (_fields[i] == 0)
+	{
+		_fields[i] = player;
+		min = minimax(fields, player);
+		_fields[i] = 0;
+		if (((player == 2) && (min < max)) || ((player == 1) && (min > max))) max = min;
 	}
-	if (move == -1) return 0;
-	return score;
+	return max;
 }
 
-void computerMove(int board[64]) {
-	int move = -1;
-	int score = -2;
-	int i;
-	for (i = 0; i < 64; ++i) {
-		if (board[i] == 0) {
-			board[i] = 1;
-			int tempScore = -minimax(board, -1);
-			board[i] = 0;
-			if (tempScore > score) {
-				score = tempScore;
-				move = i;
-			}
-		}
-	}
-	//returns a score based on minimax tree at a given node.
-	board[move] = 1;
-}
 void Interface::CPUmove(int lvl)
-{
+{	
 	if (lvl == 0)
 		return;
-	else if (lvl == 1)
-	{
-		while (!_game.makeMove(rand() % 64));
-	}
+	//else if (lvl == 1)
+	//{
+	//	while(!_game.makeMove(rand() % 64));
+	//}
 	else
 	{
-		int bestMove;
-		bestMove = minimax(_game._fields,_game.getPlayer());
+		int bestMove=0;
+		int min, max;
+
+		min = -65;
+		for (int i = 0; i <= 64; i++)
+		if (_game._fields[i] == 0)
+		{
+			_game._fields[i] = _game.getPlayer();
+			max = minimax(_game._fields, _game.getPlayer());
+			_game._fields[i] = 0;
+			if (max > min)
+			{
+				min = max; bestMove = i;
+			}
+		}
 		_game.makeMove(bestMove);
 	}
 }

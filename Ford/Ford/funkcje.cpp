@@ -55,7 +55,7 @@ void wygeneruj(int wierzcholki, int ilosc)
 		dane << "Liczba wierzcholkow : " << wierzcholki << endl;
 		dane << "ilosc : " << ilosc << endl;
 		dane << "gestosc : 25" << endl << endl;
-		for (int i = 0; i < ilosc; ++i)
+		for (int k = 0; k < ilosc; ++k)
 		{
 			G.wyczysc();
 			G.wylosuj(25);
@@ -72,7 +72,7 @@ void wygeneruj(int wierzcholki, int ilosc)
 		dane << "Liczba wierzcholkow : " << wierzcholki << endl;
 		dane << "ilosc : " << ilosc << endl;
 		dane << "gestosc : 50" << endl << endl;
-		for (int i = 0; i < ilosc; ++i)
+		for (int k = 0; k < ilosc; ++k)
 		{
 			G.wyczysc();
 			G.wylosuj(50);
@@ -89,7 +89,7 @@ void wygeneruj(int wierzcholki, int ilosc)
 		dane << "Liczba wierzcholkow : " << wierzcholki << endl;
 		dane << "ilosc : " << ilosc << endl;
 		dane << "gestosc : 75" << endl << endl;
-		for (int i = 0; i < ilosc; ++i)
+		for (int k = 0; k < ilosc; ++k)
 		{
 			G.wyczysc();
 			G.wylosuj(75);
@@ -106,7 +106,7 @@ void wygeneruj(int wierzcholki, int ilosc)
 		dane << "Liczba wierzcholkow : " << wierzcholki << endl;
 		dane << "ilosc : " << ilosc << endl;
 		dane << "gestosc : 100" << endl << endl;
-		for (int i = 0; i < ilosc; ++i)
+		for (int k = 0; k < ilosc; ++k)
 		{
 			G.wyczysc();
 			G.wylosuj(100);
@@ -244,7 +244,7 @@ void przetworzdane()
 		//Wypisanie czasow do pliku
 		for (int i = 0; i < 4; ++i)
 		{
-			plik[i] << "Czas dla gestosci " << gestosc << " % wynosi : " << czas[i] / ilosc << endl
+			plik[i] << "Czas dla gestosci " << gestosc << " % wynosi : " << czas[i] / (double)ilosc << endl
 				<< endl << "*-*-*-*-*-*-*-*-*-*-**-*-*-*-*-*-*-*-*-*-*-*-*-*-*" << endl << endl;
 			czas[i] = 0;
 		}

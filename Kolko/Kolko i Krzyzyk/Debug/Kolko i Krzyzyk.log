@@ -1,15 +1,15 @@
-﻿Build started 2014-06-10 06:09:20.
-     1>Project "C:\Users\Piotrek\Documents\Prog\Pierwej2\Kolko i Krzyzyk\Kolko i Krzyzyk\Kolko i Krzyzyk.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2014-06-17 07:42:10.
+     1>Project "C:\Users\Piotrek\Documents\GitHub\pamsi2014\Kolko\Kolko i Krzyzyk\Kolko i Krzyzyk.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          D:\Pliki programów (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Interface.cpp
          Interface.cpp
        Link:
-         D:\Pliki programów (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Piotrek\Documents\Prog\Pierwej2\Kolko i Krzyzyk\Debug\Kolko i Krzyzyk.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Piotrek\Documents\Prog\Pierwej2\Kolko i Krzyzyk\Debug\Kolko i Krzyzyk.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Piotrek\Documents\Prog\Pierwej2\Kolko i Krzyzyk\Debug\Kolko i Krzyzyk.lib" /MACHINE:X86 Debug\Game.obj
+         D:\Pliki programów (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Piotrek\Documents\GitHub\pamsi2014\Kolko\Debug\Kolko i Krzyzyk.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Piotrek\Documents\GitHub\pamsi2014\Kolko\Debug\Kolko i Krzyzyk.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Piotrek\Documents\GitHub\pamsi2014\Kolko\Debug\Kolko i Krzyzyk.lib" /MACHINE:X86 Debug\Game.obj
          Debug\Interface.obj
          Debug\main.obj
-         Kolko i Krzyzyk.vcxproj -> C:\Users\Piotrek\Documents\Prog\Pierwej2\Kolko i Krzyzyk\Debug\Kolko i Krzyzyk.exe
-     1>Done Building Project "C:\Users\Piotrek\Documents\Prog\Pierwej2\Kolko i Krzyzyk\Kolko i Krzyzyk\Kolko i Krzyzyk.vcxproj" (Build target(s)).
+         Kolko i Krzyzyk.vcxproj -> C:\Users\Piotrek\Documents\GitHub\pamsi2014\Kolko\Debug\Kolko i Krzyzyk.exe
+     1>Done Building Project "C:\Users\Piotrek\Documents\GitHub\pamsi2014\Kolko\Kolko i Krzyzyk\Kolko i Krzyzyk.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:04.71
+Time Elapsed 00:00:02.28
