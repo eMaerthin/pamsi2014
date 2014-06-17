@@ -12,5 +12,5 @@ public:
 	void startNewGame(int firstCPU, int secondCPU);
 	void printGameTable();
 	void CPUmove(int lvl);
-	int minimax(int* fields, int player);
+	int minimax(int* fields, int player, int glebokosc);
 };
