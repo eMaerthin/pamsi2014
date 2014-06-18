@@ -13,4 +13,6 @@ public:
 	void printGameTable();
 	void CPUmove(int lvl);
 	int minimax(int* fields, int player, int glebokosc);
+	int minimax2(int* fields, int player, int glebokosc);
+	int whoPlay(int first, int second);
 };
